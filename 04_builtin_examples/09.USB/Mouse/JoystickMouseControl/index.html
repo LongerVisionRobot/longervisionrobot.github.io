@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../../img/favicon.ico" />
+    <title>JoystickMouseControl - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "JoystickMouseControl";
+        var mkdocs_page_input_path = "04_builtin_examples/09.USB/Mouse/JoystickMouseControl.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">JoystickMouseControl</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h4 id="sketch-code">Sketch Code</h4>
+<pre><code class="language-C">/*
+  JoystickMouseControl
+
+  Controls the mouse from a joystick on an Arduino Leonardo, Micro or Due.
+  Uses a pushbutton to turn on and off mouse control, and a second pushbutton
+  to click the left mouse button.
+
+  Hardware:
+  - 2-axis joystick connected to pins A0 and A1
+  - pushbuttons connected to pin D2 and D3
+
+  The mouse movement is always relative. This sketch reads two analog inputs
+  that range from 0 to 1023 (or less on either end) and translates them into
+  ranges of -6 to 6.
+  The sketch assumes that the joystick resting values are around the middle of
+  the range, but that they vary within a threshold.
+
+  WARNING: When you use the Mouse.move() command, the Arduino takes over your
+  mouse! Make sure you have control before you use the command. This sketch
+  includes a pushbutton to toggle the mouse control state, so you can turn on
+  and off mouse control.
+
+  created 15 Sep 2011
+  updated 28 Mar 2012
+  by Tom Igoe
+
+  This example code is in the public domain.
+
+  https://www.arduino.cc/en/Tutorial/BuiltInExamples/JoystickMouseControl
+*/
+
+#include &quot;Mouse.h&quot;
+
+// set pin numbers for switch, joystick axes, and LED:
+const int switchPin = 2;    // switch to turn on and off mouse control
+const int mouseButton = 3;  // input pin for the mouse pushButton
+const int xAxis = A0;       // joystick X axis
+const int yAxis = A1;       // joystick Y axis
+const int ledPin = 5;       // Mouse control LED
+
+// parameters for reading the joystick:
+int range = 12;             // output range of X or Y movement
+int responseDelay = 5;      // response delay of the mouse, in ms
+int threshold = range / 4;  // resting threshold
+int center = range / 2;     // resting position value
+
+bool mouseIsActive = false;  // whether or not to control the mouse
+int lastSwitchState = LOW;   // previous switch state
+
+void setup() {
+  pinMode(switchPin, INPUT);  // the switch pin
+  pinMode(ledPin, OUTPUT);    // the LED pin
+  // take control of the mouse:
+  Mouse.begin();
+}
+
+void loop() {
+  // read the switch:
+  int switchState = digitalRead(switchPin);
+  // if it's changed and it's high, toggle the mouse state:
+  if (switchState != lastSwitchState) {
+    if (switchState == HIGH) {
+      mouseIsActive = !mouseIsActive;
+      // turn on LED to indicate mouse state:
+      digitalWrite(ledPin, mouseIsActive);
+    }
+  }
+  // save switch state for next comparison:
+  lastSwitchState = switchState;
+
+  // read and scale the two axes:
+  int xReading = readAxis(A0);
+  int yReading = readAxis(A1);
+
+  // if the mouse control state is active, move the mouse:
+  if (mouseIsActive) {
+    Mouse.move(xReading, yReading, 0);
+  }
+
+  // read the mouse button and click or not click:
+  // if the mouse button is pressed:
+  if (digitalRead(mouseButton) == HIGH) {
+    // if the mouse is not pressed, press it:
+    if (!Mouse.isPressed(MOUSE_LEFT)) {
+      Mouse.press(MOUSE_LEFT);
+    }
+  }
+  // else the mouse button is not pressed:
+  else {
+    // if the mouse is pressed, release it:
+    if (Mouse.isPressed(MOUSE_LEFT)) {
+      Mouse.release(MOUSE_LEFT);
+    }
+  }
+
+  delay(responseDelay);
+}
+
+/*
+  reads an axis (0 or 1 for x or y) and scales the analog input range to a range
+  from 0 to &lt;range&gt;
+*/
+
+int readAxis(int thisAxis) {
+  // read the analog input:
+  int reading = analogRead(thisAxis);
+
+  // map the reading from the analog input range to the output range:
+  reading = map(reading, 0, 1023, 0, range);
+
+  // if the output reading is outside from the rest position threshold, use it:
+  int distance = reading - center;
+
+  if (abs(distance) &lt; threshold) {
+    distance = 0;
+  }
+
+  // return the distance for this axis:
+  return distance;
+}
+</code></pre>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<p><img alt="Fritzing Circuit Arduino UNO R4 WiFi Mouse JoystickMouseControl" src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Examples/FritzingCircuits/09.USB/Mouse/JoystickMouseControl_bb.png" /></p>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<p><img alt="KiCad Schematic Arduino UNO R4 WiFi Mouse JoystickMouseControl" src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Examples/KiCadSchematics/09.USB/Mouse/JoystickMouseControl.svg" /></p>
+<h4 id="video-demonstration">Video Demonstration</h4>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../../..";</script>
+    <script src="../../../../js/theme_extra.js"></script>
+    <script src="../../../../js/theme.js"></script>
+      <script src="../../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>p08 DigitalHourglass - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "p08 DigitalHourglass";
+        var mkdocs_page_input_path = "04_builtin_examples/10.StarterKit_BasicKit/p08_DigitalHourglass.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">p08 DigitalHourglass</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h4 id="sketch-code">Sketch Code</h4>
+<pre><code class="language-C">/*
+  Arduino Starter Kit example
+  Project 8 - Digital Hourglass
+
+  This sketch is written to accompany Project 8 in the Arduino Starter Kit
+
+  Parts required:
+  - 10 kilohm resistor
+  - six 220 ohm resistors
+  - six LEDs
+  - tilt switch
+
+  created 13 Sep 2012
+  by Scott Fitzgerald
+
+  https://programminginarduino.wordpress.com/2016/03/03/project-08-digital-hourglass/
+
+  https://store.arduino.cc/genuino-starter-kit
+
+  This example code is part of the public domain.
+*/
+
+// named constant for the switch pin
+const int switchPin = 8;
+
+unsigned long previousTime = 0;  // store the last time an LED was updated
+int switchState = 0;             // the current switch state
+int prevSwitchState = 0;         // the previous switch state
+int led = 2;                     // a variable to refer to the LEDs
+
+// 600000 = 10 minutes in milliseconds
+long interval = 600000;  // interval at which to light the next LED
+
+void setup() {
+  // set the LED pins as outputs
+  for (int x = 2; x &lt; 8; x++) {
+    pinMode(x, OUTPUT);
+  }
+  // set the tilt switch pin as input
+  pinMode(switchPin, INPUT);
+}
+
+void loop() {
+  // store the time since the Arduino started running in a variable
+  unsigned long currentTime = millis();
+
+  // compare the current time to the previous time an LED turned on
+  // if it is greater than your interval, run the if statement
+  if (currentTime - previousTime &gt; interval) {
+    // save the current time as the last time you changed an LED
+    previousTime = currentTime;
+    // Turn the LED on
+    digitalWrite(led, HIGH);
+    // increment the led variable
+    // in 10 minutes the next LED will light up
+    led++;
+
+    if (led == 7) {
+      // the hour is up
+    }
+  }
+
+  // read the switch value
+  switchState = digitalRead(switchPin);
+
+  // if the switch has changed
+  if (switchState != prevSwitchState) {
+    // turn all the LEDs low
+    for (int x = 2; x &lt; 8; x++) {
+      digitalWrite(x, LOW);
+    }
+
+    // reset the LED variable to the first one
+    led = 2;
+
+    //reset the timer
+    previousTime = currentTime;
+  }
+  // set the previous switch state to the current state
+  prevSwitchState = switchState;
+}
+</code></pre>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<p><img alt="Fritzing Circuit Arduino UNO R4 WiFi DigitalHourglass" src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Examples/FritzingCircuits/10.StarterKit_BasicKit/p08_DigitalHourglass_bb.png" /></p>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<p><img alt="KiCad Schematic Arduino UNO R4 WiFi DigitalHourglass" src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Examples/KiCadSchematics/10.StarterKit_BasicKit/p08_DigitalHourglass.svg" /></p>
+<h4 id="video-demonstration">Video Demonstration</h4>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

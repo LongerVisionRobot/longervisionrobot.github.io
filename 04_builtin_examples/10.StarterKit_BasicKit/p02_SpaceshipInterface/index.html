@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>p02 SpaceshipInterface - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "p02 SpaceshipInterface";
+        var mkdocs_page_input_path = "04_builtin_examples/10.StarterKit_BasicKit/p02_SpaceshipInterface.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">p02 SpaceshipInterface</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h4 id="sketch-code">Sketch Code</h4>
+<pre><code class="language-C">/*
+  Arduino Starter Kit example
+  Project 2 - Spaceship Interface
+
+  This sketch is written to accompany Project 2 in the Arduino Starter Kit
+
+  Parts required:
+  - one green LED
+  - two red LEDs
+  - pushbutton
+  - 10 kilohm resistor
+  - three 220 ohm resistors
+
+  created 13 Sep 2012
+  by Scott Fitzgerald
+
+  https://programminginarduino.wordpress.com/2016/02/29/project-2/
+
+  https://store.arduino.cc/genuino-starter-kit
+
+  This example code is part of the public domain.
+*/
+
+// Create a global variable to hold the state of the switch. This variable is
+// persistent throughout the program. Whenever you refer to switchState, you’re
+// talking about the number it holds
+int switchstate = 0;
+
+void setup() {
+  // declare the LED pins as outputs
+  pinMode(3, OUTPUT);
+  pinMode(4, OUTPUT);
+  pinMode(5, OUTPUT);
+
+  // declare the switch pin as an input
+  pinMode(2, INPUT);
+}
+
+void loop() {
+
+  // read the value of the switch
+  // digitalRead() checks to see if there is voltage on the pin or not
+  switchstate = digitalRead(2);
+
+  // if the button is not pressed turn on the green LED and off the red LEDs
+  if (switchstate == LOW) {
+    digitalWrite(3, HIGH);  // turn the green LED on pin 3 on
+    digitalWrite(4, LOW);   // turn the red LED on pin 4 off
+    digitalWrite(5, LOW);   // turn the red LED on pin 5 off
+  }
+  // this else is part of the above if() statement.
+  // if the switch is not LOW (the button is pressed) turn off the green LED and
+  // blink alternatively the red LEDs
+  else {
+    digitalWrite(3, LOW);   // turn the green LED on pin 3 off
+    digitalWrite(4, LOW);   // turn the red LED on pin 4 off
+    digitalWrite(5, HIGH);  // turn the red LED on pin 5 on
+    // wait for a quarter second before changing the light
+    delay(250);
+    digitalWrite(4, HIGH);  // turn the red LED on pin 4 on
+    digitalWrite(5, LOW);   // turn the red LED on pin 5 off
+    // wait for a quarter second before changing the light
+    delay(250);
+  }
+}
+</code></pre>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<p><img alt="Fritzing Circuit Arduino UNO R4 WiFi SpaceshipInterface" src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Examples/FritzingCircuits/10.StarterKit_BasicKit/p02_SpaceshipInterface_bb.png" /></p>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<p><img alt="KiCad Schematic Arduino UNO R4 WiFi SpaceshipInterface" src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Examples/KiCadSchematics/10.StarterKit_BasicKit/p02_SpaceshipInterface.svg" /></p>
+<h4 id="video-demonstration">Video Demonstration</h4>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

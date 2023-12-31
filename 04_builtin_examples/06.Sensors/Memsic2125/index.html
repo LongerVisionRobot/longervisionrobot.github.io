@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>Memsic2125 - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Memsic2125";
+        var mkdocs_page_input_path = "04_builtin_examples/06.Sensors/Memsic2125.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Memsic2125</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ignored. <strong>Memsic 2125</strong> is outdated and deprecated.</p>
+</div>
+<h4 id="sketch-code">Sketch Code</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ignored. <strong>Memsic 2125</strong> is outdated and deprecated.</p>
+</div>
+<!-- ```C
+/*
+  Memsic2125
+
+  Read the Memsic 2125 two-axis accelerometer. Converts the pulses output by the
+  2125 into milli-g's (1/1000 of Earth's gravity) and prints them over the
+  serial connection to the computer.
+
+  The circuit:
+    - X output of accelerometer to digital pin 2
+    - Y output of accelerometer to digital pin 3
+    - +V of accelerometer to +5V
+    - GND of accelerometer to ground
+
+  created 6 Nov 2008
+  by David A. Mellis
+  modified 30 Aug 2011
+  by Tom Igoe
+
+  This example code is in the public domain.
+
+  https://www.arduino.cc/en/Tutorial/BuiltInExamples/Memsic2125
+*/
+
+// these constants won't change:
+const int xPin = 2;  // X output of the accelerometer
+const int yPin = 3;  // Y output of the accelerometer
+
+void setup() {
+  // initialize serial communications:
+  Serial.begin(9600);
+  // initialize the pins connected to the accelerometer as inputs:
+  pinMode(xPin, INPUT);
+  pinMode(yPin, INPUT);
+}
+
+void loop() {
+  // variables to read the pulse widths:
+  int pulseX, pulseY;
+  // variables to contain the resulting accelerations
+  int accelerationX, accelerationY;
+
+  // read pulse from x- and y-axes:
+  pulseX = pulseIn(xPin, HIGH);
+  pulseY = pulseIn(yPin, HIGH);
+
+  // convert the pulse width into acceleration
+  // accelerationX and accelerationY are in milli-g's:
+  // Earth's gravity is 1000 milli-g's, or 1 g.
+  accelerationX = ((pulseX / 10) - 500) * 8;
+  accelerationY = ((pulseY / 10) - 500) * 8;
+
+  // print the acceleration
+  Serial.print(accelerationX);
+  // print a tab character:
+  Serial.print("\t");
+  Serial.print(accelerationY);
+  Serial.println();
+
+  delay(100);
+}
+``` -->
+
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ignored. <strong>Memsic 2125</strong> is outdated and deprecated.</p>
+</div>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ignored. <strong>Memsic 2125</strong> is outdated and deprecated.</p>
+</div>
+<h4 id="video-demonstration">Video Demonstration</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Ignored. <strong>Memsic 2125</strong> is outdated and deprecated.</p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

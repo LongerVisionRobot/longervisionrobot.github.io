@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>p14 TweakTheArduinoLogo - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "p14 TweakTheArduinoLogo";
+        var mkdocs_page_input_path = "04_builtin_examples/10.StarterKit_BasicKit/p14_TweakTheArduinoLogo.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">p14 TweakTheArduinoLogo</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h4 id="sketch-code">Sketch Code</h4>
+<pre><code class="language-C">/*
+  Arduino Starter Kit example
+  Project 14 - Tweak the Arduino Logo
+
+  This sketch is written to accompany Project 14 in the Arduino Starter Kit
+
+  Parts required:
+  - 10 kilohm potentiometer
+
+  Software required:
+  - Processing (3.0 or newer) https://processing.org/
+  - Active Internet connection
+
+  created 18 Sep 2012
+  by Scott Fitzgerald
+
+  https://programminginarduino.wordpress.com/2016/03/08/project-14-2/
+
+  https://store.arduino.cc/genuino-starter-kit
+
+  This example code is part of the public domain.
+*/
+
+
+void setup() {
+  // initialize serial communication
+  Serial.begin(9600);
+}
+
+void loop() {
+  // read the value of A0, divide by 4 and send it as a byte over the
+  // serial connection
+  Serial.write(analogRead(A0) / 4);
+  delay(1);
+}
+
+/* Processing code for this example
+
+  // Tweak the Arduino Logo
+
+  // by Scott Fitzgerald
+  // This example code is in the public domain.
+
+  // import the serial library
+  import processing.serial.*;
+
+  // create an instance of the serial library
+  Serial myPort;
+
+  // create an instance of PImage
+  PImage logo;
+
+  // a variable to hold the background color
+  int bgcolor = 0;
+
+  void setup() {
+    size(1, 1);
+    surface.setResizable(true);
+    // set the color mode to Hue/Saturation/Brightness
+    colorMode(HSB, 255);
+
+    // load the Arduino logo into the PImage instance
+    logo = loadImage(&quot;http://www.arduino.cc/arduino_logo.png&quot;);
+
+    // make the window the same size as the image
+    surface.setSize(logo.width, logo.height);
+
+    // print a list of available serial ports to the Processing status window
+    println(&quot;Available serial ports:&quot;);
+    println(Serial.list());
+
+    // Tell the serial object the information it needs to communicate with the
+    // Arduino. Change Serial.list()[0] to the correct port corresponding to
+    // your Arduino board.  The last parameter (e.g. 9600) is the speed of the
+    // communication.  It has to correspond to the value passed to
+    // Serial.begin() in your Arduino sketch.
+    myPort = new Serial(this, Serial.list()[0], 9600);
+
+    // If you know the name of the port used by the Arduino board, you can
+    // specify it directly like this.
+    // port = new Serial(this, &quot;COM1&quot;, 9600);
+  }
+
+  void draw() {
+
+    // if there is information in the serial port
+    if ( myPort.available() &gt; 0) {
+      // read the value and store it in a variable
+      bgcolor = myPort.read();
+
+      // print the value to the status window
+      println(bgcolor);
+    }
+
+    // Draw the background. the variable bgcolor contains the Hue, determined by
+    // the value from the serial port
+    background(bgcolor, 255, 255);
+
+    // draw the Arduino logo
+    image(logo, 0, 0);
+  }
+
+*/
+</code></pre>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<p><img alt="Fritzing Circuit Arduino UNO R4 WiFi TweakTheArduinoLogo" src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Examples/FritzingCircuits/10.StarterKit_BasicKit/p14_TweakTheArduinoLogo_bb.png" /></p>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<p><img alt="KiCad Schematic Arduino UNO R4 WiFi TweakTheArduinoLogo" src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino_Examples/KiCadSchematics/10.StarterKit_BasicKit/p14_TweakTheArduinoLogo.svg" /></p>
+<h4 id="video-demonstration">Video Demonstration</h4>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

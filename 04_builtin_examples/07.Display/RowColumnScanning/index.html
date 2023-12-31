@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>RowColumnScanning - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "RowColumnScanning";
+        var mkdocs_page_input_path = "04_builtin_examples/07.Display/RowColumnScanning.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">RowColumnScanning</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please refer to <strong>Chapter 5 - Examples for Arduino UNO R4 Wifi</strong>, <strong>Section 5.8: LED_Matrix</strong>. </p>
+</div>
+<h4 id="sketch-code">Sketch Code</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please refer to <strong>Chapter 5 - Examples for Arduino UNO R4 Wifi</strong>, <strong>Section 5.8: LED_Matrix</strong>. </p>
+</div>
+<!-- ```C
+/*
+  Row-Column Scanning an 8x8 LED matrix with X-Y input
+
+  This example controls an 8x8 LED matrix using two analog inputs.
+
+  This example works for the Lumex LDM-24488NI Matrix. See
+  https://sigma.octopart.com/140413/datasheet/Lumex-LDM-24488NI.pdf
+  for the pin connections.
+
+  For other LED cathode column matrixes, you should only need to change the pin
+  numbers in the row[] and column[] arrays.
+
+  rows are the anodes
+  cols are the cathodes
+  ---------
+
+  Pin numbers:
+  Matrix:
+  - digital pins 2 through 13,
+  - analog pins 2 through 5 used as digital 16 through 19
+  Potentiometers:
+  - center pins are attached to analog pins 0 and 1, respectively
+  - side pins attached to +5V and ground, respectively
+
+  created 27 May 2009
+  modified 30 Aug 2011
+  by Tom Igoe
+
+  This example code is in the public domain.
+
+  https://www.arduino.cc/en/Tutorial/BuiltInExamples/RowColumnScanning
+*/
+
+// 2-dimensional array of row pin numbers:
+const int row[8] = {
+  2, 7, 19, 5, 13, 18, 12, 16
+};
+
+// 2-dimensional array of column pin numbers:
+const int col[8] = {
+  6, 11, 10, 3, 17, 4, 8, 9
+};
+
+// 2-dimensional array of pixels:
+int pixels[8][8];
+
+// cursor position:
+int x = 5;
+int y = 5;
+
+void setup() {
+  // initialize the I/O pins as outputs iterate over the pins:
+  for (int thisPin = 0; thisPin < 8; thisPin++) {
+    // initialize the output pins:
+    pinMode(col[thisPin], OUTPUT);
+    pinMode(row[thisPin], OUTPUT);
+    // take the col pins (i.e. the cathodes) high to ensure that the LEDS are off:
+    digitalWrite(col[thisPin], HIGH);
+  }
+
+  // initialize the pixel matrix:
+  for (int x = 0; x < 8; x++) {
+    for (int y = 0; y < 8; y++) {
+      pixels[x][y] = HIGH;
+    }
+  }
+}
+
+void loop() {
+  // read input:
+  readSensors();
+
+  // draw the screen:
+  refreshScreen();
+}
+
+void readSensors() {
+  // turn off the last position:
+  pixels[x][y] = HIGH;
+  // read the sensors for X and Y values:
+  x = 7 - map(analogRead(A0), 0, 1023, 0, 7);
+  y = map(analogRead(A1), 0, 1023, 0, 7);
+  // set the new pixel position low so that the LED will turn on in the next
+  // screen refresh:
+  pixels[x][y] = LOW;
+}
+
+void refreshScreen() {
+  // iterate over the rows (anodes):
+  for (int thisRow = 0; thisRow < 8; thisRow++) {
+    // take the row pin (anode) high:
+    digitalWrite(row[thisRow], HIGH);
+    // iterate over the cols (cathodes):
+    for (int thisCol = 0; thisCol < 8; thisCol++) {
+      // get the state of the current pixel;
+      int thisPixel = pixels[thisRow][thisCol];
+      // when the row is HIGH and the col is LOW,
+      // the LED where they meet turns on:
+      digitalWrite(col[thisCol], thisPixel);
+      // turn the pixel off:
+      if (thisPixel == LOW) {
+        digitalWrite(col[thisCol], HIGH);
+      }
+    }
+    // take the row pin low to turn off the whole row:
+    digitalWrite(row[thisRow], LOW);
+  }
+}
+``` -->
+
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please refer to <strong>Chapter 5 - Examples for Arduino UNO R4 Wifi</strong>, <strong>Section 5.8: LED_Matrix</strong>. </p>
+</div>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please refer to <strong>Chapter 5 - Examples for Arduino UNO R4 Wifi</strong>, <strong>Section 5.8: LED_Matrix</strong>. </p>
+</div>
+<h4 id="video-demonstration">Video Demonstration</h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Please refer to <strong>Chapter 5 - Examples for Arduino UNO R4 Wifi</strong>, <strong>Section 5.8: LED_Matrix</strong>. </p>
+</div>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
