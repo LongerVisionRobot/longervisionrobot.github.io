@@ -1,18 +1,7 @@
 # longervisionrobot.github.io
 
 
-<style>
-table {
-    border-collapse: collapse;
-}
-table, th, td {
-   border: none;
-}
-blockquote {
-    border-left: none;
-    padding-left: 10px;
-}
-</style>
+
 
 | Arduino UNO R4 WiFi | Raspberry Pi 5  |
 | ---           | ---           |
