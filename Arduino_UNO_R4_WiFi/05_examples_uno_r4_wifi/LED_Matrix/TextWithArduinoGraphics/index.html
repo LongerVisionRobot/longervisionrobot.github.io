@@ -60,6 +60,10 @@
                 <li class="toctree-l1"><a class="reference internal" href="../../../04_builtin_examples/">Chapter 4 - Built-in Examples</a>
                 </li>
               </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../">Chapter 5 - Examples for Arduino UNO R4 Wifi</a>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -84,41 +88,49 @@
             <div class="section" itemprop="articleBody">
               
                 <h4 id="sketch-code">Sketch Code</h4>
-<p>```C
-// To use ArduinoGraphics APIs, please include BEFORE Arduino_LED_Matrix</p>
-<h1 id="include-arduinographicsh">include "ArduinoGraphics.h"</h1>
-<h1 id="include-arduino_led_matrixh">include "Arduino_LED_Matrix.h"</h1>
-<p>ArduinoLEDMatrix matrix;</p>
-<p>void setup() {
+<pre><code class="language-C">// To use ArduinoGraphics APIs, please include BEFORE Arduino_LED_Matrix
+#include &quot;ArduinoGraphics.h&quot;
+#include &quot;Arduino_LED_Matrix.h&quot;
+
+ArduinoLEDMatrix matrix;
+
+void setup() {
   Serial.begin(115200);
-  matrix.begin();</p>
-<p>matrix.beginDraw();
+  matrix.begin();
+
+  matrix.beginDraw();
   matrix.stroke(0xFFFFFFFF);
   // add some static text
-  // will only show "UNO" (not enough space on the display)
-  const char text[] = "UNO r4";
+  // will only show &quot;UNO&quot; (not enough space on the display)
+  const char text[] = &quot;UNO r4&quot;;
   matrix.textFont(Font_4x6);
   matrix.beginText(0, 1, 0xFFFFFF);
   matrix.println(text);
-  matrix.endText();</p>
-<p>matrix.endDraw();</p>
-<p>delay(2000);
-}</p>
-<p>void loop() {</p>
-<p>// Make it scroll!
-  matrix.beginDraw();</p>
-<p>matrix.stroke(0xFFFFFFFF);
-  matrix.textScrollSpeed(50);</p>
-<p>// add the text
-  const char text[] = "    Scrolling text!    ";
+  matrix.endText();
+
+  matrix.endDraw();
+
+  delay(2000);
+}
+
+void loop() {
+
+  // Make it scroll!
+  matrix.beginDraw();
+
+  matrix.stroke(0xFFFFFFFF);
+  matrix.textScrollSpeed(50);
+
+  // add the text
+  const char text[] = &quot;    Scrolling text!    &quot;;
   matrix.textFont(Font_5x7);
   matrix.beginText(0, 1, 0xFFFFFF);
   matrix.println(text);
-  matrix.endText(SCROLL_LEFT);</p>
-<p>matrix.endDraw();
-}```</p>
-<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+  matrix.endText(SCROLL_LEFT);
+
+  matrix.endDraw();
+}
+</code></pre>
 <h4 id="video-demonstration">Video Demonstration</h4>
               
             </div>

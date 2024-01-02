@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <link rel="shortcut icon" href="../img/favicon.ico" />
-    <title>Chapter 5: Arduino Build-in Examples - Arduino UNO R4 Wifi</title>
+    <title>Chapter 5 - Examples for Arduino UNO R4 Wifi - Arduino UNO R4 Wifi</title>
     <link rel="stylesheet" href="../css/theme.css" />
     <link rel="stylesheet" href="../css/theme_extra.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
@@ -13,7 +13,7 @@
     
       <script>
         // Current page data
-        var mkdocs_page_name = "Chapter 5: Arduino Build-in Examples";
+        var mkdocs_page_name = "Chapter 5 - Examples for Arduino UNO R4 Wifi";
         var mkdocs_page_input_path = "05_examples_uno_r4_wifi.md";
         var mkdocs_page_url = null;
       </script>
@@ -60,6 +60,980 @@
                 <li class="toctree-l1"><a class="reference internal" href="../04_builtin_examples/">Chapter 4 - Built-in Examples</a>
                 </li>
               </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Chapter 5 - Examples for Arduino UNO R4 Wifi</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#section-51-analogwave">Section 5.1: AnalogWave</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#fritzing-circuit">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#kicad-schematic">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#511-dacequaltemperedscale">5.1.1 DACEqualTemperedScale</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#512-dacjacques">5.1.2 DACJacques</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_1">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_1">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#513-sinewave">5.1.3 SineWave</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_2">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_2">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-52-arduino_can">Section 5.2: Arduino_CAN</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#521-canread">5.2.1 CANRead</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_3">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_1">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_1">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_3">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#522-canwrite">5.2.2 CANWrite</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_4">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_2">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_2">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_4">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-53-arduino_freertos">Section 5.3: Arduino_FreeRTOS</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#531-freertos-blink">5.3.1 FreeRTOS-Blink</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_5">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_5">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-54-eeprom">Section 5.4: EEPROM</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#541-eeprom_clear">5.4.1 eeprom_clear</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_6">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_6">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#542-eeprom_crc">5.4.2 eeprom_crc</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_7">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_7">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#543-eeprom_get">5.4.3 eeprom_get</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_8">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_8">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#544-eeprom_iteration">5.4.4 eeprom_iteration</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_9">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_9">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#545-eeprom_put">5.4.5 eeprom_put</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_10">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_10">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#546-eeprom_read">5.4.6 eeprom_read</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_11">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_11">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#547-eeprom_update">5.4.7 eeprom_update</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_12">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_12">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#548-eeprom_write">5.4.8 eeprom_write</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_13">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_13">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-55-ethernet">Section 5.5: Ethernet</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#551-advancedchatserver">5.5.1 AdvancedChatServer</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_14">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_3">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_3">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_14">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#552-barometricpressurewebserver">5.5.2 BarometricPressureWebServer</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_15">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_4">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_4">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_15">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#553-chatserver">5.5.3 ChatServer</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_16">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_5">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_5">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_16">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#554-dhcpaddressprinter">5.5.4 DhcpAddressPrinter</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_17">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_6">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_6">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_17">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#555-dhcpchatserver">5.5.5 DhcpChatServer</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_18">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_7">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_7">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_18">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#556-linkstatus">5.5.6 LinkStatus</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_19">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_8">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_8">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_19">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#557-pagerserver">5.5.7 PagerServer</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_20">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_9">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_9">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_20">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#558-telnetclient">5.5.8 TelnetClient</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_21">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_10">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_10">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_21">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#559-udpntpclient">5.5.9 UdpNtpClient</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_22">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_11">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_11">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_22">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5510-udpsendreceivestring">5.5.10 UDPSendReceiveString</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_23">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_12">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_12">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_23">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5511-webclient">5.5.11 WebClient</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_24">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_13">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_13">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_24">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5512-webclientrepeating">5.5.12 WebClientRepeating</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_25">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_14">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_14">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_25">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5513-webserver">5.5.13 WebServer</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_26">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_15">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_15">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_26">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-56-firmata">Section 5.6: Firmata</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#561-allinputsfirmata">5.6.1 AllInputsFirmata</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_27">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_27">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#562-analogfirmata">5.6.2 AnalogFirmata</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_28">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_28">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#563-echostring">5.6.3 EchoString</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_29">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_29">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#564-oldstandardfirmata">5.6.4 OldStandardFirmata</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_30">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_30">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#565-servofirmata">5.6.5 ServoFirmata</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_31">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_31">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#566-simpleanalogfirmata">5.6.6 SimpleAnalogFirmata</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_32">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_32">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#567-simpledigitalfirmata">5.6.7 SimpleDigitalFirmata</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_33">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_33">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#568-standardfirmatable">5.6.8 StandardFirmataBLE</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_34">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_34">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#569-standardfirmatachipkit">5.6.9 StandardFirmataChipKIT</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_35">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_35">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5610-standardfirmataethernet">5.6.10 StandardFirmataEthernet</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_36">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_36">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5611-standardfirmataplus">5.6.11 StandardFirmataPlus</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_37">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_37">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5612-standardfirmatawifi">5.6.12 StandardFirmataWiFi</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_38">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_38">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-57-keyboard">Section 5.7: Keyboard</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#571-serial">5.7.1 Serial</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_39">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_39">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-58-led_matrix">Section 5.8: LED_Matrix</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#581-displaysingleframe">5.8.1 DisplaySingleFrame</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_40">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_40">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#582-gameoflife">5.8.2 GameOfLife</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_41">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_41">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#583-livepreview">5.8.3 LivePreview</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_42">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_42">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#584-matrixframebuffer">5.8.4 MatrixFrameBuffer</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_43">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_43">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#585-matrixintro">5.8.5 MatrixIntro</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_44">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_44">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#586-playanimation">5.8.6 PlayAnimation</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_45">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_45">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#587-textwitharduinographics">5.8.7 TextWithArduinoGraphics</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_46">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_46">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-59-liquidcrystal">Section 5.9: LiquidCrystal</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#591-autoscroll">5.9.1 Autoscroll</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_47">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_16">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_16">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_47">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#592-blink">5.9.2 Blink</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_48">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_17">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_17">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_48">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#593-cursor">5.9.3 Cursor</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_49">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_18">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_18">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_49">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#595-display">5.9.5 Display</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_50">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_19">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_19">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_50">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#596-helloworld">5.9.6 HelloWorld</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_51">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_20">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_20">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_51">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#597-scroll">5.9.7 Scroll</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_52">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_21">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_21">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_52">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#598-serialdisplay">5.9.8 SerialDisplay</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_53">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_22">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_22">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_53">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#599-setcursor">5.9.9 setCursor</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_54">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_23">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_23">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_54">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5910-textdirection">5.9.10 TextDirection</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_55">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_24">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_24">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_55">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-510-opamp">Section 5.10: OPAMP</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#5101-start_opamp">5.10.1 start_opamp</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_56">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_56">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-511-otaupdate">Section 5.11: OTAUpdate</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#5111-ota">5.11.1 OTA</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_57">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_57">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5112-wififirmwareota">5.11.2 WiFiFirmwareOTA</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_58">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_58">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-512-rtc">Section 5.12: RTC</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#5121-rtc_alarm">5.12.1 RTC_Alarm</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_59">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_59">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5122-rtc_automaticexample">5.12.2 RTC_AutomaticExample</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_60">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_60">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5123-rtc_ntpsync">5.12.3 RTC_NTPSync</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_61">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_61">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5124-rtc_periodicexample">5.12.4 RTC_PeriodicExample</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_62">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_62">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5125-test_rtc">5.12.5 Test_RTC</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_63">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_63">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-513-sd">Section 5.13: SD</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#5131-cardinfo">5.13.1 CardInfo</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_64">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_25">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_25">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_64">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5132-cardinfo">5.13.2 CardInfo</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_65">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_26">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_26">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_65">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5133-datalogger">5.13.3 Datalogger</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_66">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_27">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_27">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_66">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5134-dumpfile">5.13.4 DumpFile</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_67">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_28">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_28">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_67">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5135-files">5.13.5 Files</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_68">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_29">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_29">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_68">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5136-nonblockingwrite">5.13.6 NonBlockingWrite</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_69">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_30">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_30">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_69">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5137-readwrite">5.13.7 ReadWrite</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_70">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_31">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_31">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_70">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-514-sdu">Section 5.14: SDU</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#5141-usage">5.14.1 Usage</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_71">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_32">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_32">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_71">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-515-servo">Section 5.15: Servo</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#5151-knob">5.15.1 Knob</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_72">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_33">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_33">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_72">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5152-sweep">5.15.2 Sweep</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_73">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_34">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_34">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_73">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-516-softwareserial">Section 5.16: SoftwareSerial</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#5161-serialecho">5.16.1 SerialEcho</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_74">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_35">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_35">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_74">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-517-stepper">Section 5.17: Stepper</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#5171-motorknob">5.17.1 MotorKnob</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_75">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_36">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_36">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_75">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5172-stepper_onerevolution">5.17.2 stepper_oneRevolution</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_76">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_37">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_37">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_76">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5173-stepper_onestepatatime">5.17.3 stepper_oneStepAtATime</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_77">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_38">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_38">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_77">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5174-stepper_speedcontrol">5.17.4 stepper_speedControl</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_78">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_39">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_39">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_78">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-518-tft">Section 5.18: TFT</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#5181-tftbitmaplogo">5.18.1 TFTBitmapLogo</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_79">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_40">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_40">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_79">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5182-tftcolorpicker">5.18.2 TFTColorPicker</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_80">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_41">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_41">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_80">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5183-tftdisplaytext">5.18.3 TFTDisplayText</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_81">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_42">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_42">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_81">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5184-tftetchasketch">5.18.4 TFTEtchAsketch</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_82">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_43">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_43">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_82">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5185-tftgraph">5.18.5 TFTGraph</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_83">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_44">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_44">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_83">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#5186-tftpong">5.18.6 TFTPong</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_84">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_45">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_45">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_84">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-519-wdt">Section 5.19: WDT</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#5191-watchdogrefresh">5.19.1 WatchdogRefresh</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_85">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_46">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_46">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_85">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#section-520-wifis3">Section 5.20: WiFiS3</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#5201-ap_simplewebserver">5.20.1 AP_SimpleWebServer</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#sketch-code_86">Sketch Code</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#fritzing-circuit_47">Fritzing Circuit</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#kicad-schematic_47">KiCad Schematic</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#video-demonstration_86">Video Demonstration</a>
+    </li>
+        </ul>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                </li>
+              </ul>
       </div>
     </div>
     </nav>
@@ -74,7 +1048,7 @@
         <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
   <ul class="wy-breadcrumbs">
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
-      <li class="breadcrumb-item active">Chapter 5: Arduino Build-in Examples</li>
+      <li class="breadcrumb-item active">Chapter 5 - Examples for Arduino UNO R4 Wifi</li>
     <li class="wy-breadcrumbs-aside">
     </li>
   </ul>
@@ -85,6 +1059,14 @@
               
                 <h1 id="chapter-5-arduino-build-in-examples">Chapter 5: Arduino Build-in Examples</h1>
 <h2 id="section-51-analogwave">Section 5.1: AnalogWave</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All 3 examples under this <strong>section 5.1</strong> are sharing the same <strong><a href="https://fritzing.org/">Fritzing</a> Circuit</strong> and <strong><a href="https://www.kicad.org/">KiCad</a> Schematic</strong>.</p>
+</div>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<p><img alt="Fritzing Circuit Arduino UNO R4 WiFi DAC Equal Tempered Scale" src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/examples_uno_r4_wifi/FritzingCircuits/AnalogWave/DACEqualTemperedScale_bb.png" /></p>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<p><img alt="KiCad Schematic Arduino UNO R4 WiFi DAC Equal Tempered Scale" src="https://raw.githubusercontent.com/LongerVision/Resource/master/Embedded/MCU/Arduino/examples_uno_r4_wifi/KiCadSchematics/AnalogWave/DACEqualTemperedScale.svg" /></p>
 <h3 id="511-dacequaltemperedscale">5.1.1 DACEqualTemperedScale</h3>
 <h4 id="sketch-code">Sketch Code</h4>
 <pre><code class="language-C">/*
@@ -145,8 +1127,6 @@ void loop() {
   delay(500);
 }
 </code></pre>
-<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration">Video Demonstration</h4>
 <h3 id="512-dacjacques">5.1.2 DACJacques</h3>
 <h4 id="sketch-code_1">Sketch Code</h4>
@@ -235,8 +1215,6 @@ void loop() {
 
 }
 </code></pre>
-<h4 id="fritzing-circuit_1"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_1"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_1">Video Demonstration</h4>
 <h3 id="513-sinewave">5.1.3 SineWave</h3>
 <h4 id="sketch-code_2">Sketch Code</h4>
@@ -271,13 +1249,11 @@ void loop() {
   delay(1000);      // Delay for one second before repeating
 }
 </code></pre>
-<h4 id="fritzing-circuit_2"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_2"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_2">Video Demonstration</h4>
 <h2 id="section-52-arduino_can">Section 5.2: Arduino_CAN</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>CAN1 is only available on <a href="https://store.arduino.cc/products/portenta-c33">Portenta C33</a>.</p>
+<p>CAN1 is only available on <a href="https://store.arduino.cc/products/portenta-c33">Portenta C33</a>, which is to be ignored in this section.</p>
 </div>
 <h3 id="521-canread">5.2.1 CANRead</h3>
 <h4 id="sketch-code_3">Sketch Code</h4>
@@ -321,8 +1297,12 @@ void loop()
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_3"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_3"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_1"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<!-- SN65HVD230 -->
+
+<h4 id="kicad-schematic_1"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<!-- SN65HVD230 -->
+
 <h4 id="video-demonstration_3">Video Demonstration</h4>
 <h3 id="522-canwrite">5.2.2 CANWrite</h3>
 <h4 id="sketch-code_4">Sketch Code</h4>
@@ -391,10 +1371,18 @@ void loop()
   delay(1000);
 }
 </code></pre>
-<h4 id="fritzing-circuit_4"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_4"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_2"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<!-- SN65HVD230 -->
+
+<h4 id="kicad-schematic_2"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<!-- SN65HVD230 -->
+
 <h4 id="video-demonstration_4">Video Demonstration</h4>
 <h2 id="section-53-arduino_freertos">Section 5.3: Arduino_FreeRTOS</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No additional circuit is required for this <strong>section 5.3</strong>.</p>
+</div>
 <h3 id="531-freertos-blink">5.3.1 FreeRTOS-Blink</h3>
 <h4 id="sketch-code_5">Sketch Code</h4>
 <pre><code class="language-C">/*
@@ -511,10 +1499,12 @@ void blinky_thread_func(void *pvParameters)
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_5"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_5"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_5">Video Demonstration</h4>
 <h2 id="section-54-eeprom">Section 5.4: EEPROM</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No additional circuit is required for this <strong>section 5.4</strong>.</p>
+</div>
 <h3 id="541-eeprom_clear">5.4.1 eeprom_clear</h3>
 <h4 id="sketch-code_6">Sketch Code</h4>
 <pre><code class="language-C">/*
@@ -557,8 +1547,6 @@ void loop() {
   /** Empty loop. **/
 }
 </code></pre>
-<h4 id="fritzing-circuit_6"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_6"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_6">Video Demonstration</h4>
 <h3 id="542-eeprom_crc">5.4.2 eeprom_crc</h3>
 <h4 id="sketch-code_7">Sketch Code</h4>
@@ -615,8 +1603,6 @@ unsigned long eeprom_crc(void) {
   return crc;
 }
 </code></pre>
-<h4 id="fritzing-circuit_7"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_7"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_7">Video Demonstration</h4>
 <h3 id="543-eeprom_get">5.4.3 eeprom_get</h3>
 <h4 id="sketch-code_8">Sketch Code</h4>
@@ -689,8 +1675,6 @@ void loop() {
   /* Empty loop */
 }
 </code></pre>
-<h4 id="fritzing-circuit_8"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_8"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_8">Video Demonstration</h4>
 <h3 id="544-eeprom_iteration">5.4.4 eeprom_iteration</h3>
 <h4 id="sketch-code_9">Sketch Code</h4>
@@ -752,8 +1736,6 @@ void setup() {
 
 void loop() {}
 </code></pre>
-<h4 id="fritzing-circuit_9"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_9"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_9">Video Demonstration</h4>
 <h3 id="545-eeprom_put">5.4.5 eeprom_put</h3>
 <h4 id="sketch-code_10">Sketch Code</h4>
@@ -816,8 +1798,6 @@ void loop() {
   /* Empty loop */
 }
 </code></pre>
-<h4 id="fritzing-circuit_10"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_10"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_10">Video Demonstration</h4>
 <h3 id="546-eeprom_read">5.4.6 eeprom_read</h3>
 <h4 id="sketch-code_11">Sketch Code</h4>
@@ -882,8 +1862,6 @@ void loop() {
   delay(500);
 }
 </code></pre>
-<h4 id="fritzing-circuit_11"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_11"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_11">Video Demonstration</h4>
 <h3 id="547-eeprom_update">5.4.7 eeprom_update</h3>
 <h4 id="sketch-code_12">Sketch Code</h4>
@@ -959,8 +1937,6 @@ void loop() {
   delay(100);
 }
 </code></pre>
-<h4 id="fritzing-circuit_12"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_12"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_12">Video Demonstration</h4>
 <h3 id="548-eeprom_write">5.4.8 eeprom_write</h3>
 <h4 id="sketch-code_13">Sketch Code</h4>
@@ -1029,10 +2005,12 @@ void loop() {
   delay(100);
 }
 </code></pre>
-<h4 id="fritzing-circuit_13"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_13"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_13">Video Demonstration</h4>
 <h2 id="section-55-ethernet">Section 5.5: Ethernet</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No additional circuit is required for this <strong>section 5.5</strong>.</p>
+</div>
 <h3 id="551-advancedchatserver">5.5.1 AdvancedChatServer</h3>
 <h4 id="sketch-code_14">Sketch Code</h4>
 <pre><code class="language-C">/*
@@ -1155,8 +2133,8 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_14"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_14"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_3"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_3"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_14">Video Demonstration</h4>
 <h3 id="552-barometricpressurewebserver">5.5.2 BarometricPressureWebServer</h3>
 <h4 id="sketch-code_15">Sketch Code</h4>
@@ -1408,8 +2386,8 @@ unsigned int readRegister(byte registerName, int numBytes) {
   return (result);
 }
 </code></pre>
-<h4 id="fritzing-circuit_15"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_15"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_4"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_4"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_15">Video Demonstration</h4>
 <h3 id="553-chatserver">5.5.3 ChatServer</h3>
 <h4 id="sketch-code_16">Sketch Code</h4>
@@ -1510,8 +2488,8 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_16"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_16"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_5"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_5"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_16">Video Demonstration</h4>
 <h3 id="554-dhcpaddressprinter">5.5.4 DhcpAddressPrinter</h3>
 <h4 id="sketch-code_17">Sketch Code</h4>
@@ -1610,8 +2588,8 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_17"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_17"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_6"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_6"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_17">Video Demonstration</h4>
 <h3 id="555-dhcpchatserver">5.5.5 DhcpChatServer</h3>
 <h4 id="sketch-code_18">Sketch Code</h4>
@@ -1717,8 +2695,8 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_18"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_18"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_7"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_7"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_18">Video Demonstration</h4>
 <h3 id="556-linkstatus">5.5.6 LinkStatus</h3>
 <h4 id="sketch-code_19">Sketch Code</h4>
@@ -1767,8 +2745,8 @@ void loop() {
   delay(1000);
 }
 </code></pre>
-<h4 id="fritzing-circuit_19"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_19"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_8"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_8"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_19">Video Demonstration</h4>
 <h3 id="557-pagerserver">5.5.7 PagerServer</h3>
 <h4 id="sketch-code_20">Sketch Code</h4>
@@ -1844,8 +2822,8 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_20"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_20"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_9"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_9"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_20">Video Demonstration</h4>
 <h3 id="558-telnetclient">5.5.8 TelnetClient</h3>
 <h4 id="sketch-code_21">Sketch Code</h4>
@@ -1959,8 +2937,8 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_21"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_21"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_10"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_10"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_21">Video Demonstration</h4>
 <h3 id="559-udpntpclient">5.5.9 UdpNtpClient</h3>
 <h4 id="sketch-code_22">Sketch Code</h4>
@@ -2110,8 +3088,8 @@ void sendNTPpacket(const char * address) {
   Udp.endPacket();
 }
 </code></pre>
-<h4 id="fritzing-circuit_22"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_22"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_11"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_11"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_22">Video Demonstration</h4>
 <h3 id="5510-udpsendreceivestring">5.5.10 UDPSendReceiveString</h3>
 <h4 id="sketch-code_23">Sketch Code</h4>
@@ -2254,8 +3232,8 @@ void loop() {
  }
  */
 </code></pre>
-<h4 id="fritzing-circuit_23"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_23"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_12"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_12"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_23">Video Demonstration</h4>
 <h3 id="5511-webclient">5.5.11 WebClient</h3>
 <h4 id="sketch-code_24">Sketch Code</h4>
@@ -2396,8 +3374,8 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_24"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_24"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_13"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_13"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_24">Video Demonstration</h4>
 <h3 id="5512-webclientrepeating">5.5.12 WebClientRepeating</h3>
 <h4 id="sketch-code_25">Sketch Code</h4>
@@ -2528,8 +3506,8 @@ void httpRequest() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_25"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_25"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_14"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_14"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_25">Video Demonstration</h4>
 <h3 id="5513-webserver">5.5.13 WebServer</h3>
 <h4 id="sketch-code_26">Sketch Code</h4>
@@ -2656,10 +3634,14 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_26"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_26"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="fritzing-circuit_15"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_15"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_26">Video Demonstration</h4>
 <h2 id="section-56-firmata">Section 5.6: Firmata</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No additional circuit is required for this <strong>section 5.6</strong>.</p>
+</div>
 <h3 id="561-allinputsfirmata">5.6.1 AllInputsFirmata</h3>
 <h4 id="sketch-code_27">Sketch Code</h4>
 <pre><code class="language-C">/*
@@ -2751,8 +3733,6 @@ void loop()
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_27"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_27"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_27">Video Demonstration</h4>
 <h3 id="562-analogfirmata">5.6.2 AnalogFirmata</h3>
 <h4 id="sketch-code_28">Sketch Code</h4>
@@ -2850,8 +3830,6 @@ void loop()
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_28"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_28"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_28">Video Demonstration</h4>
 <h3 id="563-echostring">5.6.3 EchoString</h3>
 <h4 id="sketch-code_29">Sketch Code</h4>
@@ -2898,8 +3876,6 @@ void loop()
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_29"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_29"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_29">Video Demonstration</h4>
 <h3 id="564-oldstandardfirmata">5.6.4 OldStandardFirmata</h3>
 <h4 id="sketch-code_30">Sketch Code</h4>
@@ -3143,8 +4119,6 @@ void loop()
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_30"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_30"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_30">Video Demonstration</h4>
 <h3 id="565-servofirmata">5.6.5 ServoFirmata</h3>
 <h4 id="sketch-code_31">Sketch Code</h4>
@@ -3214,8 +4188,6 @@ void loop()
     Firmata.processInput();
 }
 </code></pre>
-<h4 id="fritzing-circuit_31"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_31"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_31">Video Demonstration</h4>
 <h3 id="566-simpleanalogfirmata">5.6.6 SimpleAnalogFirmata</h3>
 <h4 id="sketch-code_32">Sketch Code</h4>
@@ -3265,8 +4237,6 @@ void loop()
   if (analogPin &gt;= TOTAL_ANALOG_PINS) analogPin = 0;
 }
 </code></pre>
-<h4 id="fritzing-circuit_32"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_32"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_32">Video Demonstration</h4>
 <h3 id="567-simpledigitalfirmata">5.6.7 SimpleDigitalFirmata</h3>
 <h4 id="sketch-code_33">Sketch Code</h4>
@@ -3343,8 +4313,6 @@ void loop()
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_33"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_33"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_33">Video Demonstration</h4>
 <h3 id="568-standardfirmatable">5.6.8 StandardFirmataBLE</h3>
 <h4 id="sketch-code_34">Sketch Code</h4>
@@ -4173,8 +5141,6 @@ void loop()
 #endif
 }
 </code></pre>
-<h4 id="fritzing-circuit_34"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_34"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_34">Video Demonstration</h4>
 <h3 id="569-standardfirmatachipkit">5.6.9 StandardFirmataChipKIT</h3>
 <h4 id="sketch-code_35">Sketch Code</h4>
@@ -4982,8 +5948,6 @@ void loop()
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_35"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_35"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_35">Video Demonstration</h4>
 <h3 id="5610-standardfirmataethernet">5.6.10 StandardFirmataEthernet</h3>
 <h4 id="sketch-code_36">Sketch Code</h4>
@@ -5982,8 +6946,6 @@ void loop()
 
 }
 </code></pre>
-<h4 id="fritzing-circuit_36"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_36"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_36">Video Demonstration</h4>
 <h3 id="5611-standardfirmataplus">5.6.11 StandardFirmataPlus</h3>
 <h4 id="sketch-code_37">Sketch Code</h4>
@@ -6840,8 +7802,6 @@ void loop()
 #endif
 }
 </code></pre>
-<h4 id="fritzing-circuit_37"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_37"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_37">Video Demonstration</h4>
 <h3 id="5612-standardfirmatawifi">5.6.12 StandardFirmataWiFi</h3>
 <h4 id="sketch-code_38">Sketch Code</h4>
@@ -7898,10 +8858,12 @@ void loop()
   stream.maintain();
 }
 </code></pre>
-<h4 id="fritzing-circuit_38"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_38"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_38">Video Demonstration</h4>
 <h2 id="section-57-keyboard">Section 5.7: Keyboard</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No additional circuit is required for this <strong>section 5.7</strong>.</p>
+</div>
 <h3 id="571-serial">5.7.1 Serial</h3>
 <h4 id="sketch-code_39">Sketch Code</h4>
 <pre><code class="language-C">/*
@@ -7944,12 +8906,12 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_39"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<p>N/A</p>
-<h4 id="kicad-schematic_39"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<p>N/A</p>
 <h4 id="video-demonstration_39">Video Demonstration</h4>
 <h2 id="section-58-led_matrix">Section 5.8: LED_Matrix</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No additional circuit is required for this <strong>section 5.8</strong>.</p>
+</div>
 <h3 id="581-displaysingleframe">5.8.1 DisplaySingleFrame</h3>
 <h4 id="sketch-code_40">Sketch Code</h4>
 <pre><code class="language-C">/*
@@ -7992,8 +8954,6 @@ void loop() {
   Serial.println(millis());
 }
 </code></pre>
-<h4 id="fritzing-circuit_40"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_40"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_40">Video Demonstration</h4>
 <h3 id="582-gameoflife">5.8.2 GameOfLife</h3>
 <h4 id="sketch-code_41">Sketch Code</h4>
@@ -8263,8 +9223,6 @@ void displayGrid() {
   matrix.renderBitmap(grid, 8, 12);
 }
 </code></pre>
-<h4 id="fritzing-circuit_41"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_41"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_41">Video Demonstration</h4>
 <h3 id="583-livepreview">5.8.3 LivePreview</h3>
 <h4 id="sketch-code_42">Sketch Code</h4>
@@ -8307,8 +9265,6 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_42"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_42"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_42">Video Demonstration</h4>
 <h3 id="584-matrixframebuffer">5.8.4 MatrixFrameBuffer</h3>
 <h4 id="sketch-code_43">Sketch Code</h4>
@@ -8401,8 +9357,6 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_43"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_43"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_43">Video Demonstration</h4>
 <h3 id="585-matrixintro">5.8.5 MatrixIntro</h3>
 <h4 id="sketch-code_44">Sketch Code</h4>
@@ -8457,8 +9411,6 @@ void loop() {
   delay(1000);
 }
 </code></pre>
-<h4 id="fritzing-circuit_44"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_44"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_44">Video Demonstration</h4>
 <h3 id="586-playanimation">5.8.6 PlayAnimation</h3>
 <h4 id="sketch-code_45">Sketch Code</h4>
@@ -8494,8 +9446,6 @@ void loop() {
   Serial.println(millis());
 }
 </code></pre>
-<h4 id="fritzing-circuit_45"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_45"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
 <h4 id="video-demonstration_45">Video Demonstration</h4>
 <h3 id="587-textwitharduinographics">5.8.7 TextWithArduinoGraphics</h3>
 <h4 id="sketch-code_46">Sketch Code</h4>
@@ -8540,37 +9490,13 @@ void loop() {
   matrix.endText(SCROLL_LEFT);
 
   matrix.endDraw();
-}```
-
-
-#### [Fritzing] Circuit
-
-
-
-#### [KiCad] Schematic
-
-
-
-
-#### Video Demonstration
-
-
-
-
-[Fritzing]: https://fritzing.org/
-[KiCad]: https://www.kicad.org/
-[Arduino]: https://arduino.cc
-[Microcontroller]: https://en.wikipedia.org/wiki/Microcontroller
-
-
-## Section 5.9: LiquidCrystal
-
-### 5.9.1 Autoscroll
-
-#### Sketch Code
-
-```C
-/*
+}
+</code></pre>
+<h4 id="video-demonstration_46">Video Demonstration</h4>
+<h2 id="section-59-liquidcrystal">Section 5.9: LiquidCrystal</h2>
+<h3 id="591-autoscroll">5.9.1 Autoscroll</h3>
+<h4 id="sketch-code_47">Sketch Code</h4>
+<pre><code class="language-C">/*
   LiquidCrystal Library - Autoscroll
 
  Demonstrates the use a 16x2 LCD display.  The LiquidCrystal
@@ -8648,11 +9574,11 @@ void loop() {
   lcd.clear();
 }
 </code></pre>
-<h4 id="fritzing-circuit_46"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_46"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_46">Video Demonstration</h4>
+<h4 id="fritzing-circuit_16"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_16"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_47">Video Demonstration</h4>
 <h3 id="592-blink">5.9.2 Blink</h3>
-<h4 id="sketch-code_47">Sketch Code</h4>
+<h4 id="sketch-code_48">Sketch Code</h4>
 <pre><code class="language-C">/*
   LiquidCrystal Library - Blink
 
@@ -8717,11 +9643,11 @@ void loop() {
   delay(3000);
 }
 </code></pre>
-<h4 id="fritzing-circuit_47"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_47"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_47">Video Demonstration</h4>
+<h4 id="fritzing-circuit_17"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_17"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_48">Video Demonstration</h4>
 <h3 id="593-cursor">5.9.3 Cursor</h3>
-<h4 id="sketch-code_48">Sketch Code</h4>
+<h4 id="sketch-code_49">Sketch Code</h4>
 <pre><code class="language-C">/*
   LiquidCrystal Library - Cursor
 
@@ -8961,11 +9887,11 @@ void loop() {
   delay(delayTime);
 }
 </code></pre>
-<h4 id="fritzing-circuit_48"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_48"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_48">Video Demonstration</h4>
+<h4 id="fritzing-circuit_18"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_18"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_49">Video Demonstration</h4>
 <h3 id="595-display">5.9.5 Display</h3>
-<h4 id="sketch-code_49">Sketch Code</h4>
+<h4 id="sketch-code_50">Sketch Code</h4>
 <pre><code class="language-C">/*
   LiquidCrystal Library - display() and noDisplay()
 
@@ -9031,11 +9957,11 @@ void loop() {
   delay(500);
 }
 </code></pre>
-<h4 id="fritzing-circuit_49"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_49"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_49">Video Demonstration</h4>
+<h4 id="fritzing-circuit_19"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_19"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_50">Video Demonstration</h4>
 <h3 id="596-helloworld">5.9.6 HelloWorld</h3>
-<h4 id="sketch-code_50">Sketch Code</h4>
+<h4 id="sketch-code_51">Sketch Code</h4>
 <pre><code class="language-C">/*
   LiquidCrystal Library - Hello World
 
@@ -9101,11 +10027,11 @@ void loop() {
   lcd.print(millis() / 1000);
 }
 </code></pre>
-<h4 id="fritzing-circuit_50"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_50"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_50">Video Demonstration</h4>
+<h4 id="fritzing-circuit_20"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_20"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_51">Video Demonstration</h4>
 <h3 id="597-scroll">5.9.7 Scroll</h3>
-<h4 id="sketch-code_51">Sketch Code</h4>
+<h4 id="sketch-code_52">Sketch Code</h4>
 <pre><code class="language-C">/*
   LiquidCrystal Library - scrollDisplayLeft() and scrollDisplayRight()
 
@@ -9196,11 +10122,11 @@ void loop() {
 
 }
 </code></pre>
-<h4 id="fritzing-circuit_51"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_51"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_51">Video Demonstration</h4>
+<h4 id="fritzing-circuit_21"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_21"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_52">Video Demonstration</h4>
 <h3 id="598-serialdisplay">5.9.8 SerialDisplay</h3>
-<h4 id="sketch-code_52">Sketch Code</h4>
+<h4 id="sketch-code_53">Sketch Code</h4>
 <pre><code class="language-C">/*
   LiquidCrystal Library - Serial Input
 
@@ -9271,11 +10197,11 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_52"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_52"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_52">Video Demonstration</h4>
+<h4 id="fritzing-circuit_22"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_22"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_53">Video Demonstration</h4>
 <h3 id="599-setcursor">5.9.9 setCursor</h3>
-<h4 id="sketch-code_53">Sketch Code</h4>
+<h4 id="sketch-code_54">Sketch Code</h4>
 <pre><code class="language-C">/*
   LiquidCrystal Library - setCursor
 
@@ -9351,11 +10277,11 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_53"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_53"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_53">Video Demonstration</h4>
+<h4 id="fritzing-circuit_23"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_23"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_54">Video Demonstration</h4>
 <h3 id="5910-textdirection">5.9.10 TextDirection</h3>
-<h4 id="sketch-code_54">Sketch Code</h4>
+<h4 id="sketch-code_55">Sketch Code</h4>
 <pre><code class="language-C">/*
  LiquidCrystal Library - TextDirection
 
@@ -9439,12 +10365,16 @@ void loop() {
   thisChar++;
 }
 </code></pre>
-<h4 id="fritzing-circuit_54"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_54"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_54">Video Demonstration</h4>
+<h4 id="fritzing-circuit_24"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_24"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_55">Video Demonstration</h4>
 <h2 id="section-510-opamp">Section 5.10: OPAMP</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No additional circuit is required for this <strong>section 5.10</strong>.</p>
+</div>
 <h3 id="5101-start_opamp">5.10.1 start_opamp</h3>
-<h4 id="sketch-code_55">Sketch Code</h4>
+<h4 id="sketch-code_56">Sketch Code</h4>
 <pre><code class="language-C">#include &lt;OPAMP.h&gt;
 
 void setup () {
@@ -9469,12 +10399,14 @@ void loop() {
   delay(1000); // do nothing
 }
 </code></pre>
-<h4 id="fritzing-circuit_55"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_55"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_55">Video Demonstration</h4>
+<h4 id="video-demonstration_56">Video Demonstration</h4>
 <h2 id="section-511-otaupdate">Section 5.11: OTAUpdate</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No additional circuit is required for this <strong>section 5.11</strong>.</p>
+</div>
 <h3 id="5111-ota">5.11.1 OTA</h3>
-<h4 id="sketch-code_56">Sketch Code</h4>
+<h4 id="sketch-code_57">Sketch Code</h4>
 <pre><code class="language-C">/*
   OTA
 
@@ -9590,11 +10522,9 @@ void printWiFiStatus() {
   Serial.println(&quot; dBm&quot;);
 }
 </code></pre>
-<h4 id="fritzing-circuit_56"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_56"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_56">Video Demonstration</h4>
+<h4 id="video-demonstration_57">Video Demonstration</h4>
 <h3 id="5112-wififirmwareota">5.11.2 WiFiFirmwareOTA</h3>
-<h4 id="sketch-code_57">Sketch Code</h4>
+<h4 id="sketch-code_58">Sketch Code</h4>
 <pre><code class="language-C">/*
   OTA
 
@@ -9730,12 +10660,14 @@ void printWiFiStatus() {
   Serial.println(&quot; dBm&quot;);
 }
 </code></pre>
-<h4 id="fritzing-circuit_57"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_57"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_57">Video Demonstration</h4>
+<h4 id="video-demonstration_58">Video Demonstration</h4>
 <h2 id="section-512-rtc">Section 5.12: RTC</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No additional circuit is required for this <strong>section 5.12</strong>.</p>
+</div>
 <h3 id="5121-rtc_alarm">5.12.1 RTC_Alarm</h3>
-<h4 id="sketch-code_58">Sketch Code</h4>
+<h4 id="sketch-code_59">Sketch Code</h4>
 <pre><code class="language-C">/*
  * RTC_Alarm
  *
@@ -9812,11 +10744,9 @@ void alarmCallback() {
   ledState = !ledState;
 }
 </code></pre>
-<h4 id="fritzing-circuit_58"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_58"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_58">Video Demonstration</h4>
+<h4 id="video-demonstration_59">Video Demonstration</h4>
 <h3 id="5122-rtc_automaticexample">5.12.2 RTC_AutomaticExample</h3>
-<h4 id="sketch-code_59">Sketch Code</h4>
+<h4 id="sketch-code_60">Sketch Code</h4>
 <pre><code class="language-C">/*
  * RTC_AutomaticExample
  *
@@ -10016,11 +10946,9 @@ void loop()
 {
 }
 </code></pre>
-<h4 id="fritzing-circuit_59"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_59"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_59">Video Demonstration</h4>
+<h4 id="video-demonstration_60">Video Demonstration</h4>
 <h3 id="5123-rtc_ntpsync">5.12.3 RTC_NTPSync</h3>
-<h4 id="sketch-code_60">Sketch Code</h4>
+<h4 id="sketch-code_61">Sketch Code</h4>
 <pre><code class="language-C">/**
  * RTC_NTPSync
  * 
@@ -10136,11 +11064,9 @@ void setup(){
 
 void loop(){}
 </code></pre>
-<h4 id="fritzing-circuit_60"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_60"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_60">Video Demonstration</h4>
+<h4 id="video-demonstration_61">Video Demonstration</h4>
 <h3 id="5124-rtc_periodicexample">5.12.4 RTC_PeriodicExample</h3>
-<h4 id="sketch-code_61">Sketch Code</h4>
+<h4 id="sketch-code_62">Sketch Code</h4>
 <pre><code class="language-C">/*
  * RTC_PeriodicExample
  *
@@ -10208,11 +11134,9 @@ void loop() {
   delay(BLINK_DELAY);
 }
 </code></pre>
-<h4 id="fritzing-circuit_61"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_61"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_61">Video Demonstration</h4>
+<h4 id="video-demonstration_62">Video Demonstration</h4>
 <h3 id="5125-test_rtc">5.12.5 Test_RTC</h3>
-<h4 id="sketch-code_62">Sketch Code</h4>
+<h4 id="sketch-code_63">Sketch Code</h4>
 <pre><code class="language-C">/*
   Test RTC
 
@@ -10345,158 +11269,12 @@ void loop() {
 
   status = !status;
   delay(1000);
-}```
-
-
-#### [Fritzing] Circuit
-
-
-
-#### [KiCad] Schematic
-
-
-
-
-#### Video Demonstration
-
-
-
-
-[Fritzing]: https://fritzing.org/
-[KiCad]: https://www.kicad.org/
-[Arduino]: https://arduino.cc
-[Microcontroller]: https://en.wikipedia.org/wiki/Microcontroller
-
-
-## Section 5.13: SD
-
-### 5.13.1 CardInfo
-
-#### Sketch Code
-
-```C
-/*
-  SD card test
-
-  This example shows how use the utility libraries on which the'
-  SD library is based in order to get info about your SD card.
-  Very useful for testing a card when you're not sure whether its working or not.
-
-  The circuit:
-    SD card attached to SPI bus as follows:
- ** MOSI - pin 11 on Arduino Uno/Duemilanove/Diecimila
- ** MISO - pin 12 on Arduino Uno/Duemilanove/Diecimila
- ** CLK - pin 13 on Arduino Uno/Duemilanove/Diecimila
- ** CS - depends on your SD card shield or module.
-        Pin 4 used here for consistency with other Arduino examples
-
-
-  created  28 Mar 2011
-  by Limor Fried
-  modified 9 Apr 2012
-  by Tom Igoe
-*/
-// include the SD library:
-#include &lt;SPI.h&gt;
-#include &lt;SD.h&gt;
-
-// set up variables using the SD utility library functions:
-Sd2Card card;
-SdVolume volume;
-SdFile root;
-
-// change this to match your SD shield or module;
-// Arduino Ethernet shield: pin 4
-// Adafruit SD shields and modules: pin 10
-// Sparkfun SD shield: pin 8
-// MKRZero SD: SDCARD_SS_PIN
-const int chipSelect = 4;
-
-void setup() {
-  // Open serial communications and wait for port to open:
-  Serial.begin(9600);
-  while (!Serial) {
-    ; // wait for serial port to connect. Needed for native USB port only
-  }
-
-
-  Serial.print(&quot;\nInitializing SD card...&quot;);
-
-  // we'll use the initialization code from the utility libraries
-  // since we're just testing if the card is working!
-  if (!card.init(SPI_HALF_SPEED, chipSelect)) {
-    Serial.println(&quot;initialization failed. Things to check:&quot;);
-    Serial.println(&quot;* is a card inserted?&quot;);
-    Serial.println(&quot;* is your wiring correct?&quot;);
-    Serial.println(&quot;* did you change the chipSelect pin to match your shield or module?&quot;);
-    while (1);
-  } else {
-    Serial.println(&quot;Wiring is correct and a card is present.&quot;);
-  }
-
-  // print the type of card
-  Serial.println();
-  Serial.print(&quot;Card type:         &quot;);
-  switch (card.type()) {
-    case SD_CARD_TYPE_SD1:
-      Serial.println(&quot;SD1&quot;);
-      break;
-    case SD_CARD_TYPE_SD2:
-      Serial.println(&quot;SD2&quot;);
-      break;
-    case SD_CARD_TYPE_SDHC:
-      Serial.println(&quot;SDHC&quot;);
-      break;
-    default:
-      Serial.println(&quot;Unknown&quot;);
-  }
-
-  // Now we will try to open the 'volume'/'partition' - it should be FAT16 or FAT32
-  if (!volume.init(card)) {
-    Serial.println(&quot;Could not find FAT16/FAT32 partition.\nMake sure you've formatted the card&quot;);
-    while (1);
-  }
-
-  Serial.print(&quot;Clusters:          &quot;);
-  Serial.println(volume.clusterCount());
-  Serial.print(&quot;Blocks x Cluster:  &quot;);
-  Serial.println(volume.blocksPerCluster());
-
-  Serial.print(&quot;Total Blocks:      &quot;);
-  Serial.println(volume.blocksPerCluster() * volume.clusterCount());
-  Serial.println();
-
-  // print the type and size of the first FAT-type volume
-  uint32_t volumesize;
-  Serial.print(&quot;Volume type is:    FAT&quot;);
-  Serial.println(volume.fatType(), DEC);
-
-  volumesize = volume.blocksPerCluster();    // clusters are collections of blocks
-  volumesize *= volume.clusterCount();       // we'll have a lot of clusters
-  volumesize /= 2;                           // SD card blocks are always 512 bytes (2 blocks are 1KB)
-  Serial.print(&quot;Volume size (Kb):  &quot;);
-  Serial.println(volumesize);
-  Serial.print(&quot;Volume size (Mb):  &quot;);
-  volumesize /= 1024;
-  Serial.println(volumesize);
-  Serial.print(&quot;Volume size (Gb):  &quot;);
-  Serial.println((float)volumesize / 1024.0);
-
-  Serial.println(&quot;\nFiles found on the card (name, date and size in bytes): &quot;);
-  root.openRoot(volume);
-
-  // list all files in the card with date and size
-  root.ls(LS_R | LS_DATE | LS_SIZE);
-}
-
-void loop(void) {
 }
 </code></pre>
-<h4 id="fritzing-circuit_62"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_62"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_62">Video Demonstration</h4>
-<h3 id="5132-cardinfo">5.13.2 CardInfo</h3>
-<h4 id="sketch-code_63">Sketch Code</h4>
+<h4 id="video-demonstration_63">Video Demonstration</h4>
+<h2 id="section-513-sd">Section 5.13: SD</h2>
+<h3 id="5131-cardinfo">5.13.1 CardInfo</h3>
+<h4 id="sketch-code_64">Sketch Code</h4>
 <pre><code class="language-C">/*
   SD card test
 
@@ -10614,11 +11392,133 @@ void setup() {
 void loop(void) {
 }
 </code></pre>
-<h4 id="fritzing-circuit_63"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_63"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_63">Video Demonstration</h4>
+<h4 id="fritzing-circuit_25"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_25"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_64">Video Demonstration</h4>
+<h3 id="5132-cardinfo">5.13.2 CardInfo</h3>
+<h4 id="sketch-code_65">Sketch Code</h4>
+<pre><code class="language-C">/*
+  SD card test
+
+  This example shows how use the utility libraries on which the'
+  SD library is based in order to get info about your SD card.
+  Very useful for testing a card when you're not sure whether its working or not.
+
+  The circuit:
+    SD card attached to SPI bus as follows:
+ ** MOSI - pin 11 on Arduino Uno/Duemilanove/Diecimila
+ ** MISO - pin 12 on Arduino Uno/Duemilanove/Diecimila
+ ** CLK - pin 13 on Arduino Uno/Duemilanove/Diecimila
+ ** CS - depends on your SD card shield or module.
+        Pin 4 used here for consistency with other Arduino examples
+
+
+  created  28 Mar 2011
+  by Limor Fried
+  modified 9 Apr 2012
+  by Tom Igoe
+*/
+// include the SD library:
+#include &lt;SPI.h&gt;
+#include &lt;SD.h&gt;
+
+// set up variables using the SD utility library functions:
+Sd2Card card;
+SdVolume volume;
+SdFile root;
+
+// change this to match your SD shield or module;
+// Arduino Ethernet shield: pin 4
+// Adafruit SD shields and modules: pin 10
+// Sparkfun SD shield: pin 8
+// MKRZero SD: SDCARD_SS_PIN
+const int chipSelect = 4;
+
+void setup() {
+  // Open serial communications and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
+
+
+  Serial.print(&quot;\nInitializing SD card...&quot;);
+
+  // we'll use the initialization code from the utility libraries
+  // since we're just testing if the card is working!
+  if (!card.init(SPI_HALF_SPEED, chipSelect)) {
+    Serial.println(&quot;initialization failed. Things to check:&quot;);
+    Serial.println(&quot;* is a card inserted?&quot;);
+    Serial.println(&quot;* is your wiring correct?&quot;);
+    Serial.println(&quot;* did you change the chipSelect pin to match your shield or module?&quot;);
+    while (1);
+  } else {
+    Serial.println(&quot;Wiring is correct and a card is present.&quot;);
+  }
+
+  // print the type of card
+  Serial.println();
+  Serial.print(&quot;Card type:         &quot;);
+  switch (card.type()) {
+    case SD_CARD_TYPE_SD1:
+      Serial.println(&quot;SD1&quot;);
+      break;
+    case SD_CARD_TYPE_SD2:
+      Serial.println(&quot;SD2&quot;);
+      break;
+    case SD_CARD_TYPE_SDHC:
+      Serial.println(&quot;SDHC&quot;);
+      break;
+    default:
+      Serial.println(&quot;Unknown&quot;);
+  }
+
+  // Now we will try to open the 'volume'/'partition' - it should be FAT16 or FAT32
+  if (!volume.init(card)) {
+    Serial.println(&quot;Could not find FAT16/FAT32 partition.\nMake sure you've formatted the card&quot;);
+    while (1);
+  }
+
+  Serial.print(&quot;Clusters:          &quot;);
+  Serial.println(volume.clusterCount());
+  Serial.print(&quot;Blocks x Cluster:  &quot;);
+  Serial.println(volume.blocksPerCluster());
+
+  Serial.print(&quot;Total Blocks:      &quot;);
+  Serial.println(volume.blocksPerCluster() * volume.clusterCount());
+  Serial.println();
+
+  // print the type and size of the first FAT-type volume
+  uint32_t volumesize;
+  Serial.print(&quot;Volume type is:    FAT&quot;);
+  Serial.println(volume.fatType(), DEC);
+
+  volumesize = volume.blocksPerCluster();    // clusters are collections of blocks
+  volumesize *= volume.clusterCount();       // we'll have a lot of clusters
+  volumesize /= 2;                           // SD card blocks are always 512 bytes (2 blocks are 1KB)
+  Serial.print(&quot;Volume size (Kb):  &quot;);
+  Serial.println(volumesize);
+  Serial.print(&quot;Volume size (Mb):  &quot;);
+  volumesize /= 1024;
+  Serial.println(volumesize);
+  Serial.print(&quot;Volume size (Gb):  &quot;);
+  Serial.println((float)volumesize / 1024.0);
+
+  Serial.println(&quot;\nFiles found on the card (name, date and size in bytes): &quot;);
+  root.openRoot(volume);
+
+  // list all files in the card with date and size
+  root.ls(LS_R | LS_DATE | LS_SIZE);
+}
+
+void loop(void) {
+}
+</code></pre>
+<h4 id="fritzing-circuit_26"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_26"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_65">Video Demonstration</h4>
 <h3 id="5133-datalogger">5.13.3 Datalogger</h3>
-<h4 id="sketch-code_64">Sketch Code</h4>
+<h4 id="sketch-code_66">Sketch Code</h4>
 <pre><code class="language-C">/*
   SD card datalogger
 
@@ -10695,11 +11595,11 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_64"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_64"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_64">Video Demonstration</h4>
+<h4 id="fritzing-circuit_27"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_27"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_66">Video Demonstration</h4>
 <h3 id="5134-dumpfile">5.13.4 DumpFile</h3>
-<h4 id="sketch-code_65">Sketch Code</h4>
+<h4 id="sketch-code_67">Sketch Code</h4>
 <pre><code class="language-C">/*
   SD card file dump
 
@@ -10765,11 +11665,11 @@ void setup() {
 void loop() {
 }
 </code></pre>
-<h4 id="fritzing-circuit_65"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_65"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_65">Video Demonstration</h4>
+<h4 id="fritzing-circuit_28"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_28"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_67">Video Demonstration</h4>
 <h3 id="5135-files">5.13.5 Files</h3>
-<h4 id="sketch-code_66">Sketch Code</h4>
+<h4 id="sketch-code_68">Sketch Code</h4>
 <pre><code class="language-C">/*
   SD card basic file example
 
@@ -10843,11 +11743,11 @@ void loop() {
   // nothing happens after setup finishes.
 }
 </code></pre>
-<h4 id="fritzing-circuit_66"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_66"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_66">Video Demonstration</h4>
+<h4 id="fritzing-circuit_29"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_29"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_68">Video Demonstration</h4>
 <h3 id="5136-nonblockingwrite">5.13.6 NonBlockingWrite</h3>
-<h4 id="sketch-code_67">Sketch Code</h4>
+<h4 id="sketch-code_69">Sketch Code</h4>
 <pre><code class="language-C">/*
   Non-blocking Write
 
@@ -10940,11 +11840,11 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_67"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_67"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_67">Video Demonstration</h4>
+<h4 id="fritzing-circuit_30"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_30"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_69">Video Demonstration</h4>
 <h3 id="5137-readwrite">5.13.7 ReadWrite</h3>
-<h4 id="sketch-code_68">Sketch Code</h4>
+<h4 id="sketch-code_70">Sketch Code</h4>
 <pre><code class="language-C">/*
   SD card read/write
 
@@ -11102,12 +12002,12 @@ void loop() {
   // nothing happens after setup
 }
 </code></pre>
-<h4 id="fritzing-circuit_68"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_68"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_68">Video Demonstration</h4>
+<h4 id="fritzing-circuit_31"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_31"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_70">Video Demonstration</h4>
 <h2 id="section-514-sdu">Section 5.14: SDU</h2>
 <h3 id="5141-usage">5.14.1 Usage</h3>
-<h4 id="sketch-code_69">Sketch Code</h4>
+<h4 id="sketch-code_71">Sketch Code</h4>
 <pre><code class="language-C">/*
  Usage
  This example demonstrates how to use the UNO R4 SDU library to update a
@@ -11180,12 +12080,12 @@ void loop() {
 }
 
 </code></pre>
-<h4 id="fritzing-circuit_69"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_69"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_69">Video Demonstration</h4>
+<h4 id="fritzing-circuit_32"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_32"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_71">Video Demonstration</h4>
 <h2 id="section-515-servo">Section 5.15: Servo</h2>
 <h3 id="5151-knob">5.15.1 Knob</h3>
-<h4 id="sketch-code_70">Sketch Code</h4>
+<h4 id="sketch-code_72">Sketch Code</h4>
 <pre><code class="language-C">/*
  Controlling a servo position using a potentiometer (variable resistor)
  by Michal Rinott &lt;http://people.interaction-ivrea.it/m.rinott&gt;
@@ -11213,11 +12113,11 @@ void loop() {
   delay(15);                           // waits for the servo to get there
 }
 </code></pre>
-<h4 id="fritzing-circuit_70"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_70"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_70">Video Demonstration</h4>
+<h4 id="fritzing-circuit_33"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_33"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_72">Video Demonstration</h4>
 <h3 id="5152-sweep">5.15.2 Sweep</h3>
-<h4 id="sketch-code_71">Sketch Code</h4>
+<h4 id="sketch-code_73">Sketch Code</h4>
 <pre><code class="language-C">/* Sweep
  by BARRAGAN &lt;http://barraganstudio.com&gt;
  This example code is in the public domain.
@@ -11250,12 +12150,12 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_71"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_71"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_71">Video Demonstration</h4>
+<h4 id="fritzing-circuit_34"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_34"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_73">Video Demonstration</h4>
 <h2 id="section-516-softwareserial">Section 5.16: SoftwareSerial</h2>
 <h3 id="5161-serialecho">5.16.1 SerialEcho</h3>
-<h4 id="sketch-code_72">Sketch Code</h4>
+<h4 id="sketch-code_74">Sketch Code</h4>
 <pre><code class="language-C">#include &lt;SoftwareSerial.h&gt;
 
 // Note any pin can be used for TX, but only the following pins
@@ -11285,12 +12185,12 @@ void loop() { // run over and over
     }
 }
 </code></pre>
-<h4 id="fritzing-circuit_72"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_72"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_72">Video Demonstration</h4>
+<h4 id="fritzing-circuit_35"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_35"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_74">Video Demonstration</h4>
 <h2 id="section-517-stepper">Section 5.17: Stepper</h2>
 <h3 id="5171-motorknob">5.17.1 MotorKnob</h3>
-<h4 id="sketch-code_73">Sketch Code</h4>
+<h4 id="sketch-code_75">Sketch Code</h4>
 <pre><code class="language-C">/*
  * MotorKnob
  *
@@ -11329,34 +12229,14 @@ void loop() {
 
   // remember the previous value of the sensor
   previous = val;
-}```
-
-
-#### [Fritzing] Circuit
-
-
-
-#### [KiCad] Schematic
-
-
-
-
-#### Video Demonstration
-
-
-
-
-[Fritzing]: https://fritzing.org/
-[KiCad]: https://www.kicad.org/
-[Arduino]: https://arduino.cc
-[Microcontroller]: https://en.wikipedia.org/wiki/Microcontroller
-
-### 5.17.2 stepper_oneRevolution
-
-#### Sketch Code
-
-```C
-
+}
+</code></pre>
+<h4 id="fritzing-circuit_36"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_36"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_75">Video Demonstration</h4>
+<h3 id="5172-stepper_onerevolution">5.17.2 stepper_oneRevolution</h3>
+<h4 id="sketch-code_76">Sketch Code</h4>
+<pre><code class="language-C">
 /*
  Stepper Motor Control - one revolution
 
@@ -11399,13 +12279,12 @@ void loop() {
   myStepper.step(-stepsPerRevolution);
   delay(500);
 }
-
 </code></pre>
-<h4 id="fritzing-circuit_73"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_73"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_73">Video Demonstration</h4>
+<h4 id="fritzing-circuit_37"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_37"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_76">Video Demonstration</h4>
 <h3 id="5173-stepper_onestepatatime">5.17.3 stepper_oneStepAtATime</h3>
-<h4 id="sketch-code_74">Sketch Code</h4>
+<h4 id="sketch-code_77">Sketch Code</h4>
 <pre><code class="language-C">
 /*
  Stepper Motor Control - one step at a time
@@ -11450,11 +12329,11 @@ void loop() {
   delay(500);
 }
 </code></pre>
-<h4 id="fritzing-circuit_74"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_74"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_74">Video Demonstration</h4>
+<h4 id="fritzing-circuit_38"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_38"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_77">Video Demonstration</h4>
 <h3 id="5174-stepper_speedcontrol">5.17.4 stepper_speedControl</h3>
-<h4 id="sketch-code_75">Sketch Code</h4>
+<h4 id="sketch-code_78">Sketch Code</h4>
 <pre><code class="language-C">
 /*
  Stepper Motor Control - speed control
@@ -11502,12 +12381,12 @@ void loop() {
   }
 }
 </code></pre>
-<h4 id="fritzing-circuit_75"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_75"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_75">Video Demonstration</h4>
+<h4 id="fritzing-circuit_39"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_39"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_78">Video Demonstration</h4>
 <h2 id="section-518-tft">Section 5.18: TFT</h2>
 <h3 id="5181-tftbitmaplogo">5.18.1 TFTBitmapLogo</h3>
-<h4 id="sketch-code_76">Sketch Code</h4>
+<h4 id="sketch-code_79">Sketch Code</h4>
 <pre><code class="language-C">/*
 
  Arduino TFT Bitmap Logo example
@@ -11617,11 +12496,11 @@ void loop() {
   delay(1500);
 }
 </code></pre>
-<h4 id="fritzing-circuit_76"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_76"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_76">Video Demonstration</h4>
+<h4 id="fritzing-circuit_40"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_40"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_79">Video Demonstration</h4>
 <h3 id="5182-tftcolorpicker">5.18.2 TFTColorPicker</h3>
-<h4 id="sketch-code_77">Sketch Code</h4>
+<h4 id="sketch-code_80">Sketch Code</h4>
 <pre><code class="language-C">/*
 
  TFT Color Picker
@@ -11689,11 +12568,11 @@ void loop() {
 
 }
 </code></pre>
-<h4 id="fritzing-circuit_77"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_77"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_77">Video Demonstration</h4>
+<h4 id="fritzing-circuit_41"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_41"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_80">Video Demonstration</h4>
 <h3 id="5183-tftdisplaytext">5.18.3 TFTDisplayText</h3>
-<h4 id="sketch-code_78">Sketch Code</h4>
+<h4 id="sketch-code_81">Sketch Code</h4>
 <pre><code class="language-C">/*
   Arduino TFT text example
 
@@ -11768,11 +12647,11 @@ void loop() {
   TFTscreen.text(sensorPrintout, 0, 20);
 }
 </code></pre>
-<h4 id="fritzing-circuit_78"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_78"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_78">Video Demonstration</h4>
+<h4 id="fritzing-circuit_42"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_42"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_81">Video Demonstration</h4>
 <h3 id="5184-tftetchasketch">5.18.4 TFTEtchAsketch</h3>
-<h4 id="sketch-code_79">Sketch Code</h4>
+<h4 id="sketch-code_82">Sketch Code</h4>
 <pre><code class="language-C">/*
 
  TFT EtchASketch
@@ -11857,11 +12736,11 @@ void loop() {
   delay(33);
 }
 </code></pre>
-<h4 id="fritzing-circuit_79"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_79"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_79">Video Demonstration</h4>
+<h4 id="fritzing-circuit_43"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_43"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_82">Video Demonstration</h4>
 <h3 id="5185-tftgraph">5.18.5 TFTGraph</h3>
-<h4 id="sketch-code_80">Sketch Code</h4>
+<h4 id="sketch-code_83">Sketch Code</h4>
 <pre><code class="language-C">/*
 
  TFT Graph
@@ -11932,11 +12811,11 @@ void loop() {
   delay(16);
 }
 </code></pre>
-<h4 id="fritzing-circuit_80"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_80"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_80">Video Demonstration</h4>
+<h4 id="fritzing-circuit_44"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_44"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_83">Video Demonstration</h4>
 <h3 id="5186-tftpong">5.18.6 TFTPong</h3>
-<h4 id="sketch-code_81">Sketch Code</h4>
+<h4 id="sketch-code_84">Sketch Code</h4>
 <pre><code class="language-C">/*
 
  TFT Pong
@@ -12071,16 +12950,20 @@ boolean inPaddle(int x, int y, int rectX, int rectY, int rectWidth, int rectHeig
   return result;
 }
 </code></pre>
-<h4 id="fritzing-circuit_81"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_81"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_81">Video Demonstration</h4>
+<h4 id="fritzing-circuit_45"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_45"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_84">Video Demonstration</h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><a href="https://docs.arduino.cc/retired/boards/arduino-esplora">Esplora</a> is <strong>ALREADY retired</strong>.</p>
 </div>
 <h2 id="section-519-wdt">Section 5.19: WDT</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No additional circuit is required for this <strong>section 5.19</strong>.</p>
+</div>
 <h3 id="5191-watchdogrefresh">5.19.1 WatchdogRefresh</h3>
-<h4 id="sketch-code_82">Sketch Code</h4>
+<h4 id="sketch-code_85">Sketch Code</h4>
 <pre><code class="language-C">/*
   Watchdog Refresh
 
@@ -12148,12 +13031,16 @@ void loop() {
 
 }
 </code></pre>
-<h4 id="fritzing-circuit_82"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_82"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_82">Video Demonstration</h4>
+<h4 id="fritzing-circuit_46"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_46"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_85">Video Demonstration</h4>
 <h2 id="section-520-wifis3">Section 5.20: WiFiS3</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>No additional circuit is required for this <strong>section 5.20</strong>.</p>
+</div>
 <h3 id="5201-ap_simplewebserver">5.20.1 AP_SimpleWebServer</h3>
-<h4 id="sketch-code_83">Sketch Code</h4>
+<h4 id="sketch-code_86">Sketch Code</h4>
 <pre><code class="language-C">/*
   WiFi Web Server LED Blink
 
@@ -12322,12 +13209,15 @@ void printWiFiStatus() {
 
 }
 </code></pre>
-<h4 id="fritzing-circuit_83"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic_83"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
-<h4 id="video-demonstration_83">Video Demonstration</h4>
+<h4 id="fritzing-circuit_47"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic_47"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration_86">Video Demonstration</h4>
               
             </div>
           </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../04_builtin_examples/" class="btn btn-neutral float-left" title="Chapter 4 - Built-in Examples"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+    </div>
 
   <hr/>
 
@@ -12348,6 +13238,8 @@ void printWiFiStatus() {
   <div class="rst-versions" role="note" aria-label="Versions">
   <span class="rst-current-version" data-toggle="rst-current-version">
     
+    
+      <span><a href="../04_builtin_examples/" style="color: #fcfcfc">&laquo; Previous</a></span>
     
     
   </span>
