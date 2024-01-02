@@ -88,17 +88,19 @@
             <div class="section" itemprop="articleBody">
               
                 <h4 id="sketch-code">Sketch Code</h4>
-<p>```C
-/*
-  LiquidCrystal Library - Cursor</p>
-<p>Demonstrates the use a 16x2 LCD display.  The LiquidCrystal
+<pre><code class="language-C">/*
+  LiquidCrystal Library - Cursor
+
+ Demonstrates the use a 16x2 LCD display.  The LiquidCrystal
  library works with all LCD displays that are compatible with the
  Hitachi HD44780 driver. There are many of them out there, and you
- can usually tell them by the 16-pin interface.</p>
-<p>This sketch prints "Hello World!" to the LCD and
+ can usually tell them by the 16-pin interface.
+
+ This sketch prints &quot;Hello World!&quot; to the LCD and
  uses the cursor()  and noCursor() methods to turn
- on and off the cursor.</p>
-<p>The circuit:
+ on and off the cursor.
+
+ The circuit:
  * LCD RS pin to digital pin 12
  * LCD Enable pin to digital pin 11
  * LCD D4 pin to digital pin 5
@@ -108,8 +110,9 @@
  * LCD R/W pin to ground
  * 10K resistor:
  * ends to +5V and ground
- * wiper to LCD VO pin (pin 3)</p>
-<p>Library originally added 18 Apr 2008
+ * wiper to LCD VO pin (pin 3)
+
+ Library originally added 18 Apr 2008
  by David A. Mellis
  library modified 5 Jul 2009
  by Limor Fried (http://www.ladyada.net)
@@ -118,23 +121,30 @@
  modified 22 Nov 2010
  by Tom Igoe
  modified 7 Nov 2016
- by Arturo Guadalupi</p>
-<p>This example code is in the public domain.</p>
-<p>http://www.arduino.cc/en/Tutorial/LiquidCrystalCursor</p>
-<p>*/</p>
-<p>// include the library code:</p>
-<h1 id="include">include <LiquidCrystal.h></h1>
-<p>// initialize the library by associating any needed LCD interface pin
+ by Arturo Guadalupi
+
+ This example code is in the public domain.
+
+ http://www.arduino.cc/en/Tutorial/LiquidCrystalCursor
+
+*/
+
+// include the library code:
+#include &lt;LiquidCrystal.h&gt;
+
+// initialize the library by associating any needed LCD interface pin
 // with the arduino pin number it is connected to
 const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);</p>
-<p>void setup() {
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+void setup() {
   // set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
   // Print a message to the LCD.
-  lcd.print("hello, world!");
-}</p>
-<p>void loop() {
+  lcd.print(&quot;hello, world!&quot;);
+}
+
+void loop() {
   // Turn off the cursor:
   lcd.noCursor();
   delay(500);
@@ -142,9 +152,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);</p>
   lcd.cursor();
   delay(500);
 }
-``</p>
-<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
-<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+</code></pre>
 <h4 id="video-demonstration">Video Demonstration</h4>
               
             </div>
