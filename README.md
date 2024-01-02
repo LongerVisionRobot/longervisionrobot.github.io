@@ -1,4 +1,5 @@
-# Longer Vision Robot - Just Have Some Fun
+# Longer Vision Robot
+## Author: Nobody
 
 
 | Arduino UNO R4 WiFi | Raspberry Pi 5 | BeagleV-Fire |
