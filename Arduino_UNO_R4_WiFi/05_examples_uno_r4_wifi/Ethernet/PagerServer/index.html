@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>PagerServer - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "PagerServer";
+        var mkdocs_page_input_path = "05_examples_uno_r4_wifi/Ethernet/PagerServer.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../04_builtin_examples/">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">PagerServer</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h4 id="sketch-code">Sketch Code</h4>
+<pre><code class="language-C">/*
+ Pager Server
+
+ A simple server that echoes any incoming messages to all
+ connected clients. Connect two or more telnet sessions
+ to see how server.available() and server.print() works.
+
+ created in September 2020 for the Ethernet library
+ by Juraj Andrassy https://github.com/jandrassy
+
+*/
+#include &lt;Ethernet.h&gt;
+
+// Enter a MAC address for your controller below.
+// Newer Ethernet shields have a MAC address printed on a sticker on the shield
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+
+// Set the static IP address to use if the DHCP fails to assign
+IPAddress ip(192, 168, 0, 177);
+
+EthernetServer server(2323);
+
+void setup() {
+
+  Serial.begin(9600);
+  while (!Serial);
+
+  // start the Ethernet connection:
+  Serial.println(&quot;Initialize Ethernet with DHCP:&quot;);
+  if (Ethernet.begin(mac) == 0) {
+    Serial.println(&quot;Failed to configure Ethernet using DHCP&quot;);
+    // Check for Ethernet hardware present
+    if (Ethernet.hardwareStatus() == EthernetNoHardware) {
+      Serial.println(&quot;Ethernet shield was not found.  Sorry, can't run without hardware. :(&quot;);
+      while (true) {
+        delay(1); // do nothing, no point running without Ethernet hardware
+      }
+    }
+    if (Ethernet.linkStatus() == LinkOFF) {
+      Serial.println(&quot;Ethernet cable is not connected.&quot;);
+    }
+    // try to configure using IP address instead of DHCP:
+    Ethernet.begin(mac, ip);
+  } else {
+    Serial.print(&quot;  DHCP assigned IP &quot;);
+    Serial.println(Ethernet.localIP());
+  }
+
+  server.begin();
+
+  IPAddress ip = Ethernet.localIP();
+  Serial.println();
+  Serial.print(&quot;To access the server, connect with Telnet client to &quot;);
+  Serial.print(ip);
+  Serial.println(&quot; 2323&quot;);
+}
+
+void loop() {
+
+  EthernetClient client = server.available(); // returns first client which has data to read or a 'false' client
+  if (client) { // client is true only if it is connected and has data to read
+    String s = client.readStringUntil('\n'); // read the message incoming from one of the clients
+    s.trim(); // trim eventual \r
+    Serial.println(s); // print the message to Serial Monitor
+    client.print(&quot;echo: &quot;); // this is only for the sending client
+    server.println(s); // send the message to all connected clients
+#ifndef ARDUINO_ARCH_SAM
+    server.flush(); // flush the buffers
+#endif /* !defined(ARDUINO_ARCH_SAM) */
+  }
+}
+</code></pre>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration">Video Demonstration</h4>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

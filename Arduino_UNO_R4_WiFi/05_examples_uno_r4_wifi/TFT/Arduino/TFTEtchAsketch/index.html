@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../../img/favicon.ico" />
+    <title>TFTEtchAsketch - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "TFTEtchAsketch";
+        var mkdocs_page_input_path = "05_examples_uno_r4_wifi/TFT/Arduino/TFTEtchAsketch.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../../04_builtin_examples/">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">TFTEtchAsketch</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h4 id="sketch-code">Sketch Code</h4>
+<pre><code class="language-C">/*
+
+ TFT EtchASketch
+
+ This example for the Arduino screen draws a white point
+ on the GLCD based on the values of 2 potentiometers.
+ To clear the screen, press a button attached to pin 2.
+
+ This example code is in the public domain.
+
+ Created 15 April 2013 by Scott Fitzgerald
+
+ http://www.arduino.cc/en/Tutorial/TFTEtchASketch
+
+ */
+
+#include &lt;TFT.h&gt;  // Arduino LCD library
+#include &lt;SPI.h&gt;
+
+// pin definition for the Uno
+#define cs   10
+#define dc   9
+#define rst  8
+
+// pin definition for the Leonardo
+// #define cs   7
+// #define dc   0
+// #define rst  1
+
+TFT TFTscreen = TFT(cs, dc, rst);
+
+// initial position of the cursor
+int xPos = TFTscreen.width() / 2;
+int yPos = TFTscreen.height() / 2;
+
+// pin the erase switch is connected to
+int erasePin = 2;
+
+void setup() {
+  // declare inputs
+  pinMode(erasePin, INPUT);
+  // initialize the screen
+  TFTscreen.begin();
+  // make the background black
+  TFTscreen.background(0, 0, 0);
+}
+
+void loop() {
+  // read the potentiometers on A0 and A1
+  int xValue = analogRead(A0);
+  int yValue = analogRead(A1);
+
+  // map the values and update the position
+  xPos = xPos + (map(xValue, 0, 1023, 2, -2));
+  yPos = yPos + (map(yValue, 0, 1023, -2, 2));
+
+  // don't let the point go past the screen edges
+  if (xPos &gt; 159) {
+    (xPos = 159);
+  }
+
+  if (xPos &lt; 0) {
+    (xPos = 0);
+  }
+  if (yPos &gt; 127) {
+    (yPos = 127);
+  }
+
+  if (yPos &lt; 0) {
+    (yPos = 0);
+  }
+
+  // draw the point
+  TFTscreen.stroke(255, 255, 255);
+  TFTscreen.point(xPos, yPos);
+
+  // read the value of the pin, and erase the screen if pressed
+  if (digitalRead(erasePin) == HIGH) {
+    TFTscreen.background(0, 0, 0);
+  }
+
+  delay(33);
+}
+</code></pre>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration">Video Demonstration</h4>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../../..";</script>
+    <script src="../../../../js/theme_extra.js"></script>
+    <script src="../../../../js/theme.js"></script>
+      <script src="../../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

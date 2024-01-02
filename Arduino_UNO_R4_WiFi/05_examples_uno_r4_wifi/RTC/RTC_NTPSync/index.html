@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>RTC NTPSync - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "RTC NTPSync";
+        var mkdocs_page_input_path = "05_examples_uno_r4_wifi/RTC/RTC_NTPSync.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../04_builtin_examples/">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">RTC NTPSync</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h4 id="sketch-code">Sketch Code</h4>
+<pre><code class="language-C">/**
+ * RTC_NTPSync
+ * 
+ * This example shows how to set the RTC (Real Time Clock) on the Portenta C33 / UNO R4 WiFi
+ * to the current date and time retrieved from an NTP server on the Internet (pool.ntp.org).
+ * Then the current time from the RTC is printed to the Serial port.
+ * 
+ * Instructions:
+ * 1. Download the NTPClient library (https://github.com/arduino-libraries/NTPClient) through the Library Manager
+ * 2. Change the WiFi credentials in the arduino_secrets.h file to match your WiFi network.
+ * 3. Upload this sketch to Portenta C33 / UNO R4 WiFi.
+ * 4. Open the Serial Monitor.
+ * 
+ * Initial author: Sebastian Romero @sebromero
+ * 
+ * Find the full UNO R4 WiFi RTC documentation here:
+ * https://docs.arduino.cc/tutorials/uno-r4-wifi/rtc
+ */
+
+// Include the RTC library
+#include &quot;RTC.h&quot;
+
+//Include the NTP library
+#include &lt;NTPClient.h&gt;
+
+#if defined(ARDUINO_PORTENTA_C33)
+#include &lt;WiFiC3.h&gt;
+#elif defined(ARDUINO_UNOWIFIR4)
+#include &lt;WiFiS3.h&gt;
+#endif
+
+#include &lt;WiFiUdp.h&gt;
+#include &quot;arduino_secrets.h&quot; 
+
+///////please enter your sensitive data in the Secret tab/arduino_secrets.h
+char ssid[] = SECRET_SSID;        // your network SSID (name)
+char pass[] = SECRET_PASS;    // your network password (use for WPA, or use as key for WEP)
+
+int wifiStatus = WL_IDLE_STATUS;
+WiFiUDP Udp; // A UDP instance to let us send and receive packets over UDP
+NTPClient timeClient(Udp);
+
+void printWifiStatus() {
+  // print the SSID of the network you're attached to:
+  Serial.print(&quot;SSID: &quot;);
+  Serial.println(WiFi.SSID());
+
+  // print your board's IP address:
+  IPAddress ip = WiFi.localIP();
+  Serial.print(&quot;IP Address: &quot;);
+  Serial.println(ip);
+
+  // print the received signal strength:
+  long rssi = WiFi.RSSI();
+  Serial.print(&quot;signal strength (RSSI):&quot;);
+  Serial.print(rssi);
+  Serial.println(&quot; dBm&quot;);
+}
+
+void connectToWiFi(){
+  // check for the WiFi module:
+  if (WiFi.status() == WL_NO_MODULE) {
+    Serial.println(&quot;Communication with WiFi module failed!&quot;);
+    // don't continue
+    while (true);
+  }
+
+  String fv = WiFi.firmwareVersion();
+  if (fv &lt; WIFI_FIRMWARE_LATEST_VERSION) {
+    Serial.println(&quot;Please upgrade the firmware&quot;);
+  }
+
+  // attempt to connect to WiFi network:
+  while (wifiStatus != WL_CONNECTED) {
+    Serial.print(&quot;Attempting to connect to SSID: &quot;);
+    Serial.println(ssid);
+    // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
+    wifiStatus = WiFi.begin(ssid, pass);
+
+    // wait 10 seconds for connection:
+    delay(10000);
+  }
+
+  Serial.println(&quot;Connected to WiFi&quot;);
+  printWifiStatus();
+}
+
+void setup(){
+  Serial.begin(9600);
+  while (!Serial);
+
+  connectToWiFi();
+  RTC.begin();
+  Serial.println(&quot;\nStarting connection to server...&quot;);
+  timeClient.begin();
+  timeClient.update();
+
+  // Get the current date and time from an NTP server and convert
+  // it to UTC +2 by passing the time zone offset in hours.
+  // You may change the time zone offset to your local one.
+  auto timeZoneOffsetHours = 2;
+  auto unixTime = timeClient.getEpochTime() + (timeZoneOffsetHours * 3600);
+  Serial.print(&quot;Unix time = &quot;);
+  Serial.println(unixTime);
+  RTCTime timeToSet = RTCTime(unixTime);
+  RTC.setTime(timeToSet);
+
+  // Retrieve the date and time from the RTC and print them
+  RTCTime currentTime;
+  RTC.getTime(currentTime); 
+  Serial.println(&quot;The RTC was just set to: &quot; + String(currentTime));
+}
+
+void loop(){}
+</code></pre>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration">Video Demonstration</h4>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>RTC AutomaticExample - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "RTC AutomaticExample";
+        var mkdocs_page_input_path = "05_examples_uno_r4_wifi/RTC/RTC_AutomaticExample.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../04_builtin_examples/">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">RTC AutomaticExample</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h4 id="sketch-code">Sketch Code</h4>
+<pre><code class="language-C">/*
+ * RTC_AutomaticExample
+ *
+ * This example sets the RTC (Real Time Clock) on the Portenta C33 automatically by
+ * retrieving the date and time from the computer you upload the sketch from, at the
+ * point when you start the upload.
+ *
+ * Next, it gets the current time from the RTC and prints it to the Serial Monitor.
+ * It then sets an RTC alarm to fire every time the seconds value of the time is zero.
+ * The alarm, which now goes off once a minute, triggers a callback that prints the
+ * current time to the Serial Monitor.
+ *
+ * Find the full UNO R4 WiFi RTC documentation here:
+ * https://docs.arduino.cc/tutorials/uno-r4-wifi/rtc
+ */
+
+// Include the RTC library
+#include &quot;RTC.h&quot;
+
+DayOfWeek convertDayOfWeek(String s)
+{
+  if (s == String(&quot;Mon&quot;))
+  {
+    return DayOfWeek::MONDAY;
+  }
+  if (s == String(&quot;Tue&quot;))
+  {
+    return DayOfWeek::TUESDAY;
+  }
+  if (s == String(&quot;Wed&quot;))
+  {
+    return DayOfWeek::WEDNESDAY;
+  }  
+  if (s == String(&quot;Thu&quot;))
+  {
+    return DayOfWeek::THURSDAY;
+  }  
+  if (s == String(&quot;Fri&quot;))
+  {
+    return DayOfWeek::FRIDAY;
+  }  
+  if (s == String(&quot;Sat&quot;))
+  {
+    return DayOfWeek::SATURDAY;
+  }  
+  if (s == String(&quot;Sun&quot;))
+  {
+    return DayOfWeek::SUNDAY;
+  }  
+}
+
+Month convertMonth(String s)
+{
+  if (s == String(&quot;Jan&quot;))
+  {
+    return Month::JANUARY;
+  }
+  if (s == String(&quot;Feb&quot;))
+  {
+    return Month::FEBRUARY;
+  }
+  if (s == String(&quot;Mar&quot;))
+  {
+    return Month::MARCH;
+  }
+  if (s == String(&quot;Apr&quot;))
+  {
+    return Month::APRIL;
+  }
+  if (s == String(&quot;May&quot;))
+  {
+    return Month::MAY;
+  }
+  if (s == String(&quot;Jun&quot;))
+  {
+    return Month::JUNE;
+  }
+  if (s == String(&quot;Jul&quot;))
+  {
+    return Month::JULY;
+  }
+  if (s == String(&quot;Aug&quot;))
+  {
+    return Month::AUGUST;
+  }
+  if (s == String(&quot;Sep&quot;))
+  {
+    return Month::SEPTEMBER;
+  }
+  if (s == String(&quot;Oct&quot;))
+  {
+    return Month::OCTOBER;
+  }  
+  if (s == String(&quot;Nov&quot;))
+  {
+    return Month::NOVEMBER;
+  }
+  if (s == String(&quot;Dec&quot;))
+  {
+    return Month::DECEMBER;
+  }  
+}
+
+RTCTime currentRTCTime()
+{
+  // Get a compilation timestamp of the format: Wed May 10 08:54:31 2023
+  // __TIMESTAMP__ is a GNU C extension macro
+  // We can't use the standard macros __DATE__ and __TIME__ because they don't provide the day of the week
+  String timeStamp = __TIMESTAMP__;
+  // Extract the day of the week
+  int pos1 = timeStamp.indexOf(&quot; &quot;);
+  DayOfWeek dayOfWeek = convertDayOfWeek(timeStamp.substring(0, pos1));
+  // Extract the month
+  ++pos1;
+  int pos2 = timeStamp.indexOf(&quot; &quot;, pos1);
+  Month month = convertMonth(timeStamp.substring(pos1, pos2));
+  // Extract the day
+  pos1 = ++pos2;
+  pos2 = timeStamp.indexOf(&quot; &quot;, pos1);
+  int day = timeStamp.substring(pos1, pos2).toInt();
+  // Extract the hour
+  pos1 = ++pos2;
+  pos2 = timeStamp.indexOf(&quot;:&quot;, pos1);
+  int hour = timeStamp.substring(pos1, pos2).toInt();
+  // Extract the minute
+  pos1 = ++pos2;
+  pos2 = timeStamp.indexOf(&quot;:&quot;, pos1);
+  int minute = timeStamp.substring(pos1, pos2).toInt();
+  // Extract the second
+  pos1 = ++pos2;
+  pos2 = timeStamp.indexOf(&quot; &quot;, pos1);
+  int second = timeStamp.substring(pos1, pos2).toInt();
+  // Extract the year
+  pos1 = ++pos2;
+  pos2 = timeStamp.indexOf(&quot; &quot;, pos1);
+  int year = timeStamp.substring(pos1, pos2).toInt();
+
+  return RTCTime(day, month, year, hour, minute, second, dayOfWeek, SaveLight::SAVING_TIME_INACTIVE);
+}
+
+void alarmCallback() {
+  Serial.println(&quot;An alarm was triggered at:&quot;);
+  RTCTime currentTime;
+  RTC.getTime(currentTime); 
+  Serial.print(currentTime.getYear());
+  Serial.print(&quot;-&quot;);
+  Serial.print(Month2int(currentTime.getMonth()));
+  Serial.print(&quot;-&quot;);
+  Serial.print(currentTime.getDayOfMonth());
+  Serial.print(&quot; &quot;);
+  Serial.print(currentTime.getHour());
+  Serial.print(&quot;:&quot;);
+  Serial.print(currentTime.getMinutes());
+  Serial.print(&quot;:&quot;);
+  Serial.println(currentTime.getSeconds());
+}
+
+void setup()
+{
+  Serial.begin(9600);
+  while (!Serial) ;
+
+  // Initialize the RTC
+  RTC.begin();
+
+  // Get the current date and time when the sketch is uploaded and set the RTC
+  RTCTime timeToSet = currentRTCTime();
+  RTC.setTime(timeToSet);
+
+  // Retrieve the date and time from the RTC and print them
+  Serial.println(&quot;The RTC was just set to: &quot;);
+  RTCTime currentTime;
+  RTC.getTime(currentTime); 
+  Serial.print(currentTime.getYear());
+  Serial.print(&quot;-&quot;);
+  Serial.print(Month2int(currentTime.getMonth()));
+  Serial.print(&quot;-&quot;);
+  Serial.print(currentTime.getDayOfMonth());
+  Serial.print(&quot; &quot;);
+  Serial.print(currentTime.getHour());
+  Serial.print(&quot;:&quot;);
+  Serial.print(currentTime.getMinutes());
+  Serial.print(&quot;:&quot;);
+  Serial.println(currentTime.getSeconds());
+
+  // Create an alarm time with the seconds value set to zero
+  RTCTime alarmTime;
+  alarmTime.setSecond(0);
+  // Tell the RTC to only match on the seconds value
+  AlarmMatch alarmMatch;
+  alarmMatch.addMatchSecond();
+  // Set the alarm callback function
+  RTC.setAlarmCallback(alarmCallback, alarmTime, alarmMatch);
+}
+
+void loop()
+{
+}
+</code></pre>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration">Video Demonstration</h4>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../../img/favicon.ico" />
+    <title>TFTBitmapLogo - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "TFTBitmapLogo";
+        var mkdocs_page_input_path = "05_examples_uno_r4_wifi/TFT/Arduino/TFTBitmapLogo.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../../04_builtin_examples/">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">TFTBitmapLogo</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h4 id="sketch-code">Sketch Code</h4>
+<pre><code class="language-C">/*
+
+ Arduino TFT Bitmap Logo example
+
+ This example reads an image file from a micro-SD card
+ and draws it on the screen, at random locations.
+
+ In this sketch, the Arduino logo is read from a micro-SD card.
+ There is a .bmp file included with this sketch.
+ - open the sketch folder (Ctrl-K or Cmd-K)
+ - copy the &quot;arduino.bmp&quot; file to a micro-SD
+ - put the SD into the SD slot of the Arduino TFT module.
+
+ This example code is in the public domain.
+
+ Created 19 April 2013 by Enrico Gueli
+
+ http://www.arduino.cc/en/Tutorial/TFTBitmapLogo
+
+ */
+
+// include the necessary libraries
+#include &lt;SPI.h&gt;
+#include &lt;SD.h&gt;
+#include &lt;TFT.h&gt;  // Arduino LCD library
+
+// pin definition for the Uno
+#define sd_cs  4
+#define lcd_cs 10
+#define dc     9
+#define rst    8
+
+// pin definition for the Leonardo
+//#define sd_cs  8
+//#define lcd_cs 7
+//#define dc     0
+//#define rst    1
+
+TFT TFTscreen = TFT(lcd_cs, dc, rst);
+
+// this variable represents the image to be drawn on screen
+PImage logo;
+
+
+void setup() {
+  // initialize the GLCD and show a message
+  // asking the user to open the serial line
+  TFTscreen.begin();
+  TFTscreen.background(255, 255, 255);
+
+  TFTscreen.stroke(0, 0, 255);
+  TFTscreen.println();
+  TFTscreen.println(F(&quot;Arduino TFT Bitmap Example&quot;));
+  TFTscreen.stroke(0, 0, 0);
+  TFTscreen.println(F(&quot;Open serial monitor&quot;));
+  TFTscreen.println(F(&quot;to run the sketch&quot;));
+
+  // initialize the serial port: it will be used to
+  // print some diagnostic info
+  Serial.begin(9600);
+  while (!Serial) {
+    // wait for serial port to connect. Needed for native USB port only
+  }
+
+  // clear the GLCD screen before starting
+  TFTscreen.background(255, 255, 255);
+
+  // try to access the SD card. If that fails (e.g.
+  // no card present), the setup process will stop.
+  Serial.print(F(&quot;Initializing SD card...&quot;));
+  if (!SD.begin(sd_cs)) {
+    Serial.println(F(&quot;failed!&quot;));
+    return;
+  }
+  Serial.println(F(&quot;OK!&quot;));
+
+  // initialize and clear the GLCD screen
+  TFTscreen.begin();
+  TFTscreen.background(255, 255, 255);
+
+  // now that the SD card can be access, try to load the
+  // image file.
+  logo = TFTscreen.loadImage(&quot;arduino.bmp&quot;);
+  if (!logo.isValid()) {
+    Serial.println(F(&quot;error while loading arduino.bmp&quot;));
+  }
+}
+
+void loop() {
+  // don't do anything if the image wasn't loaded correctly.
+  if (logo.isValid() == false) {
+    return;
+  }
+
+  Serial.println(F(&quot;drawing image&quot;));
+
+  // get a random location where to draw the image.
+  // To avoid the image to be draw outside the screen,
+  // take into account the image size.
+  int x = random(TFTscreen.width() - logo.width());
+  int y = random(TFTscreen.height() - logo.height());
+
+  // draw the image to the screen
+  TFTscreen.image(logo, x, y);
+
+  // wait a little bit before drawing again
+  delay(1500);
+}
+</code></pre>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration">Video Demonstration</h4>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../../..";</script>
+    <script src="../../../../js/theme_extra.js"></script>
+    <script src="../../../../js/theme.js"></script>
+      <script src="../../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

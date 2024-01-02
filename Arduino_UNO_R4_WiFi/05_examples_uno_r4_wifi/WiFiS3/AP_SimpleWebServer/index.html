@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>AP SimpleWebServer - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "AP SimpleWebServer";
+        var mkdocs_page_input_path = "05_examples_uno_r4_wifi/WiFiS3/AP_SimpleWebServer.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../04_builtin_examples/">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">AP SimpleWebServer</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h4 id="sketch-code">Sketch Code</h4>
+<pre><code class="language-C">/*
+  WiFi Web Server LED Blink
+
+  A simple web server that lets you blink an LED via the web.
+  This sketch will create a new access point (with no password).
+  It will then launch a new server and print out the IP address
+  to the Serial Monitor. From there, you can open that address in a web browser
+  to turn on and off the LED on pin 13.
+
+  If the IP address of your board is yourAddress:
+    http://yourAddress/H turns the LED on
+    http://yourAddress/L turns it off
+
+  created 25 Nov 2012
+  by Tom Igoe
+  adapted to WiFi AP by Adafruit
+
+  Find the full UNO R4 WiFi Network documentation here:
+  https://docs.arduino.cc/tutorials/uno-r4-wifi/wifi-examples#access-point
+ */
+
+#include &quot;WiFiS3.h&quot;
+
+#include &quot;arduino_secrets.h&quot; 
+
+///////please enter your sensitive data in the Secret tab/arduino_secrets.h
+char ssid[] = SECRET_SSID;        // your network SSID (name)
+char pass[] = SECRET_PASS;        // your network password (use for WPA, or use as key for WEP)
+int keyIndex = 0;                 // your network key index number (needed only for WEP)
+
+int led =  LED_BUILTIN;
+int status = WL_IDLE_STATUS;
+WiFiServer server(80);
+
+void setup() {
+  //Initialize serial and wait for port to open:
+  Serial.begin(9600);
+  while (!Serial) {
+    ; // wait for serial port to connect. Needed for native USB port only
+  }
+  Serial.println(&quot;Access Point Web Server&quot;);
+
+  pinMode(led, OUTPUT);      // set the LED pin mode
+
+  // check for the WiFi module:
+  if (WiFi.status() == WL_NO_MODULE) {
+    Serial.println(&quot;Communication with WiFi module failed!&quot;);
+    // don't continue
+    while (true);
+  }
+
+  String fv = WiFi.firmwareVersion();
+  if (fv &lt; WIFI_FIRMWARE_LATEST_VERSION) {
+    Serial.println(&quot;Please upgrade the firmware&quot;);
+  }
+
+  // by default the local IP address will be 192.168.4.1
+  // you can override it with the following:
+  WiFi.config(IPAddress(192,48,56,2));
+
+  // print the network name (SSID);
+  Serial.print(&quot;Creating access point named: &quot;);
+  Serial.println(ssid);
+
+  // Create open network. Change this line if you want to create an WEP network:
+  status = WiFi.beginAP(ssid, pass);
+  if (status != WL_AP_LISTENING) {
+    Serial.println(&quot;Creating access point failed&quot;);
+    // don't continue
+    while (true);
+  }
+
+  // wait 10 seconds for connection:
+  delay(10000);
+
+  // start the web server on port 80
+  server.begin();
+
+  // you're connected now, so print out the status
+  printWiFiStatus();
+}
+
+
+void loop() {
+
+  // compare the previous status to the current status
+  if (status != WiFi.status()) {
+    // it has changed update the variable
+    status = WiFi.status();
+
+    if (status == WL_AP_CONNECTED) {
+      // a device has connected to the AP
+      Serial.println(&quot;Device connected to AP&quot;);
+    } else {
+      // a device has disconnected from the AP, and we are back in listening mode
+      Serial.println(&quot;Device disconnected from AP&quot;);
+    }
+  }
+
+  WiFiClient client = server.available();   // listen for incoming clients
+
+  if (client) {                             // if you get a client,
+    Serial.println(&quot;new client&quot;);           // print a message out the serial port
+    String currentLine = &quot;&quot;;                // make a String to hold incoming data from the client
+    while (client.connected()) {            // loop while the client's connected
+      delayMicroseconds(10);                // This is required for the Arduino Nano RP2040 Connect - otherwise it will loop so fast that SPI will never be served.
+      if (client.available()) {             // if there's bytes to read from the client,
+        char c = client.read();             // read a byte, then
+        Serial.write(c);                    // print it out to the serial monitor
+        if (c == '\n') {                    // if the byte is a newline character
+
+          // if the current line is blank, you got two newline characters in a row.
+          // that's the end of the client HTTP request, so send a response:
+          if (currentLine.length() == 0) {
+            // HTTP headers always start with a response code (e.g. HTTP/1.1 200 OK)
+            // and a content-type so the client knows what's coming, then a blank line:
+            client.println(&quot;HTTP/1.1 200 OK&quot;);
+            client.println(&quot;Content-type:text/html&quot;);
+            client.println();
+
+            // the content of the HTTP response follows the header:
+            client.print(&quot;&lt;p style=\&quot;font-size:7vw;\&quot;&gt;Click &lt;a href=\&quot;/H\&quot;&gt;here&lt;/a&gt; turn the LED on&lt;br&gt;&lt;/p&gt;&quot;);
+            client.print(&quot;&lt;p style=\&quot;font-size:7vw;\&quot;&gt;Click &lt;a href=\&quot;/L\&quot;&gt;here&lt;/a&gt; turn the LED off&lt;br&gt;&lt;/p&gt;&quot;);
+
+            // The HTTP response ends with another blank line:
+            client.println();
+            // break out of the while loop:
+            break;
+          }
+          else {      // if you got a newline, then clear currentLine:
+            currentLine = &quot;&quot;;
+          }
+        }
+        else if (c != '\r') {    // if you got anything else but a carriage return character,
+          currentLine += c;      // add it to the end of the currentLine
+        }
+
+        // Check to see if the client request was &quot;GET /H&quot; or &quot;GET /L&quot;:
+        if (currentLine.endsWith(&quot;GET /H&quot;)) {
+          digitalWrite(led, HIGH);               // GET /H turns the LED on
+        }
+        if (currentLine.endsWith(&quot;GET /L&quot;)) {
+          digitalWrite(led, LOW);                // GET /L turns the LED off
+        }
+      }
+    }
+    // close the connection:
+    client.stop();
+    Serial.println(&quot;client disconnected&quot;);
+  }
+}
+
+void printWiFiStatus() {
+  // print the SSID of the network you're attached to:
+  Serial.print(&quot;SSID: &quot;);
+  Serial.println(WiFi.SSID());
+
+  // print your WiFi shield's IP address:
+  IPAddress ip = WiFi.localIP();
+  Serial.print(&quot;IP Address: &quot;);
+  Serial.println(ip);
+
+  // print where to go in a browser:
+  Serial.print(&quot;To see this page in action, open a browser to http://&quot;);
+  Serial.println(ip);
+
+}
+</code></pre>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration">Video Demonstration</h4>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>

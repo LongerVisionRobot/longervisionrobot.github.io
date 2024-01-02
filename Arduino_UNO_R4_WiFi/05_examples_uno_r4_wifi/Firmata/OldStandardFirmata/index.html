@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../../../img/favicon.ico" />
+    <title>OldStandardFirmata - Arduino UNO R4 Wifi</title>
+    <link rel="stylesheet" href="../../../css/theme.css" />
+    <link rel="stylesheet" href="../../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../../../assets/_mkdocstrings.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "OldStandardFirmata";
+        var mkdocs_page_input_path = "05_examples_uno_r4_wifi/Firmata/OldStandardFirmata.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../../.." class="icon icon-home"> Arduino UNO R4 Wifi
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../01_introduction/">Chapter 1 - Intruduction</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../02_components/">Chapter 2 - Components</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../03_arduinoide_fritzing_kicad/">Chapter 3 - Arduino IDE, Fritzing and KiCad</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../../../04_builtin_examples/">Chapter 4 - Built-in Examples</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../..">Arduino UNO R4 Wifi</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../.." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">OldStandardFirmata</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h4 id="sketch-code">Sketch Code</h4>
+<pre><code class="language-C">/*
+ * Firmata is a generic protocol for communicating with microcontrollers
+ * from software on a host computer. It is intended to work with
+ * any host computer software package.
+ *
+ * To download a host software package, please click on the following link
+ * to open the list of Firmata client libraries in your default browser.
+ *
+ * https://github.com/firmata/arduino#firmata-client-libraries
+ */
+
+/*
+  Copyright (C) 2006-2008 Hans-Christoph Steiner.  All rights reserved.
+
+  This library is free software; you can redistribute it and/or
+  modify it under the terms of the GNU Lesser General Public
+  License as published by the Free Software Foundation; either
+  version 2.1 of the License, or (at your option) any later version.
+
+  See file LICENSE.txt for further informations on licensing terms.
+ */
+
+/*
+ * This is an old version of StandardFirmata (v2.0).  It is kept here because
+ * its the last version that works on an ATMEGA8 chip.  Also, it can be used
+ * for host software that has not been updated to a newer version of the
+ * protocol.  It also uses the old baud rate of 115200 rather than 57600.
+ */
+
+#include &lt;EEPROM.h&gt;
+#include &lt;Firmata.h&gt;
+
+/*==============================================================================
+ * GLOBAL VARIABLES
+ *============================================================================*/
+
+/* analog inputs */
+int analogInputsToReport = 0; // bitwise array to store pin reporting
+int analogPin = 0; // counter for reading analog pins
+
+/* digital pins */
+byte reportPINs[TOTAL_PORTS];   // PIN == input port
+byte previousPINs[TOTAL_PORTS]; // PIN == input port
+byte pinStatus[TOTAL_PINS]; // store pin status, default OUTPUT
+byte portStatus[TOTAL_PORTS];
+
+/* timer variables */
+unsigned long currentMillis;     // store the current value from millis()
+unsigned long previousMillis;    // for comparison with currentMillis
+
+
+/*==============================================================================
+ * FUNCTIONS
+ *============================================================================*/
+
+void outputPort(byte portNumber, byte portValue)
+{
+  portValue = portValue &amp; ~ portStatus[portNumber];
+  if (previousPINs[portNumber] != portValue) {
+    Firmata.sendDigitalPort(portNumber, portValue);
+    previousPINs[portNumber] = portValue;
+    Firmata.sendDigitalPort(portNumber, portValue);
+  }
+}
+
+/* -----------------------------------------------------------------------------
+ * check all the active digital inputs for change of state, then add any events
+ * to the Serial output queue using Serial.print() */
+void checkDigitalInputs(void)
+{
+  byte i, tmp;
+  for (i = 0; i &lt; TOTAL_PORTS; i++) {
+    if (reportPINs[i]) {
+      switch (i) {
+        case 0: outputPort(0, PIND &amp; ~ B00000011); break; // ignore Rx/Tx 0/1
+        case 1: outputPort(1, PINB); break;
+        case 2: outputPort(2, PINC); break;
+      }
+    }
+  }
+}
+
+// -----------------------------------------------------------------------------
+/* sets the pin mode to the correct state and sets the relevant bits in the
+ * two bit-arrays that track Digital I/O and PWM status
+ */
+void setPinModeCallback(byte pin, int mode) {
+  byte port = 0;
+  byte offset = 0;
+
+  if (pin &lt; 8) {
+    port = 0;
+    offset = 0;
+  } else if (pin &lt; 14) {
+    port = 1;
+    offset = 8;
+  } else if (pin &lt; 22) {
+    port = 2;
+    offset = 14;
+  }
+
+  if (pin &gt; 1) { // ignore RxTx (pins 0 and 1)
+    pinStatus[pin] = mode;
+    switch (mode) {
+      case INPUT:
+        pinMode(pin, INPUT);
+        portStatus[port] = portStatus[port] &amp; ~ (1 &lt;&lt; (pin - offset));
+        break;
+      case OUTPUT:
+        digitalWrite(pin, LOW); // disable PWM
+      case PWM:
+        pinMode(pin, OUTPUT);
+        portStatus[port] = portStatus[port] | (1 &lt;&lt; (pin - offset));
+        break;
+      //case ANALOG: // TODO figure this out
+      default:
+        Firmata.sendString(&quot;&quot;);
+    }
+    // TODO: save status to EEPROM here, if changed
+  }
+}
+
+void analogWriteCallback(byte pin, int value)
+{
+  setPinModeCallback(pin, PIN_MODE_PWM);
+  analogWrite(pin, value);
+}
+
+void digitalWriteCallback(byte port, int value)
+{
+  switch (port) {
+    case 0: // pins 2-7 (don't change Rx/Tx, pins 0 and 1)
+      // 0xFF03 == B1111111100000011    0x03 == B00000011
+      PORTD = (value &amp; ~ 0xFF03) | (PORTD &amp; 0x03);
+      break;
+    case 1: // pins 8-13 (14,15 are disabled for the crystal)
+      PORTB = (byte)value;
+      break;
+    case 2: // analog pins used as digital
+      PORTC = (byte)value;
+      break;
+  }
+}
+
+// -----------------------------------------------------------------------------
+/* sets bits in a bit array (int) to toggle the reporting of the analogIns
+ */
+//void FirmataClass::setAnalogPinReporting(byte pin, byte state) {
+//}
+void reportAnalogCallback(byte pin, int value)
+{
+  if (value == 0) {
+    analogInputsToReport = analogInputsToReport &amp; ~ (1 &lt;&lt; pin);
+  }
+  else { // everything but 0 enables reporting of that pin
+    analogInputsToReport = analogInputsToReport | (1 &lt;&lt; pin);
+  }
+  // TODO: save status to EEPROM here, if changed
+}
+
+void reportDigitalCallback(byte port, int value)
+{
+  reportPINs[port] = (byte)value;
+  if (port == 2) // turn off analog reporting when used as digital
+    analogInputsToReport = 0;
+}
+
+/*==============================================================================
+ * SETUP()
+ *============================================================================*/
+void setup()
+{
+  byte i;
+
+  Firmata.setFirmwareVersion(2, 0);
+
+  Firmata.attach(ANALOG_MESSAGE, analogWriteCallback);
+  Firmata.attach(DIGITAL_MESSAGE, digitalWriteCallback);
+  Firmata.attach(REPORT_ANALOG, reportAnalogCallback);
+  Firmata.attach(REPORT_DIGITAL, reportDigitalCallback);
+  Firmata.attach(SET_PIN_MODE, setPinModeCallback);
+
+  portStatus[0] = B00000011;  // ignore Tx/RX pins
+  portStatus[1] = B11000000;  // ignore 14/15 pins
+  portStatus[2] = B00000000;
+
+  //    for(i=0; i&lt;TOTAL_PINS; ++i) { // TODO make this work with analogs
+  for (i = 0; i &lt; 14; ++i) {
+    setPinModeCallback(i, OUTPUT);
+  }
+  // set all outputs to 0 to make sure internal pull-up resistors are off
+  PORTB = 0; // pins 8-15
+  PORTC = 0; // analog port
+  PORTD = 0; // pins 0-7
+
+  // TODO rethink the init, perhaps it should report analog on default
+  for (i = 0; i &lt; TOTAL_PORTS; ++i) {
+    reportPINs[i] = false;
+  }
+  // TODO: load state from EEPROM here
+
+  /* send digital inputs here, if enabled, to set the initial state on the
+   * host computer, since once in the loop(), this firmware will only send
+   * digital data on change. */
+  if (reportPINs[0]) outputPort(0, PIND &amp; ~ B00000011); // ignore Rx/Tx 0/1
+  if (reportPINs[1]) outputPort(1, PINB);
+  if (reportPINs[2]) outputPort(2, PINC);
+
+  Firmata.begin(115200);
+}
+
+/*==============================================================================
+ * LOOP()
+ *============================================================================*/
+void loop()
+{
+  /* DIGITALREAD - as fast as possible, check for changes and output them to the
+   * FTDI buffer using Serial.print()  */
+  checkDigitalInputs();
+  currentMillis = millis();
+  if (currentMillis - previousMillis &gt; 20) {
+    previousMillis += 20;     // run this every 20ms
+    /* SERIALREAD - Serial.read() uses a 128 byte circular buffer, so handle
+     * all serialReads at once, i.e. empty the buffer */
+    while (Firmata.available())
+      Firmata.processInput();
+    /* SEND FTDI WRITE BUFFER - make sure that the FTDI buffer doesn't go over
+     * 60 bytes. use a timer to sending an event character every 4 ms to
+     * trigger the buffer to dump. */
+
+    /* ANALOGREAD - right after the event character, do all of the
+     * analogReads().  These only need to be done every 4ms. */
+    for (analogPin = 0; analogPin &lt; TOTAL_ANALOG_PINS; analogPin++) {
+      if ( analogInputsToReport &amp; (1 &lt;&lt; analogPin) ) {
+        Firmata.sendAnalog(analogPin, analogRead(analogPin));
+      }
+    }
+  }
+}
+</code></pre>
+<h4 id="fritzing-circuit"><a href="https://fritzing.org/">Fritzing</a> Circuit</h4>
+<h4 id="kicad-schematic"><a href="https://www.kicad.org/">KiCad</a> Schematic</h4>
+<h4 id="video-demonstration">Video Demonstration</h4>
+              
+            </div>
+          </div><footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+    
+  </span>
+</div>
+    <script src="../../../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "../../..";</script>
+    <script src="../../../js/theme_extra.js"></script>
+    <script src="../../../js/theme.js"></script>
+      <script src="../../../search/main.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
